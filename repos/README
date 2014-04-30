@@ -1,0 +1,36 @@
+This folder holds repo data, but we don't need to check it in.
+
+
+
+$ find . -maxdepth 4 -type d
+.
+./managed
+./managed/prd
+./managed/prd/ius
+./managed/prd/ius/6
+./managed/prd/updates
+./managed/prd/updates/6.4
+./managed/prd/updates/6.3
+./managed/prd/epel
+./managed/prd/epel/6
+./managed/stg
+./managed/stg/ius
+./managed/stg/ius/6
+./managed/stg/updates
+./managed/stg/updates/6.4
+./managed/stg/updates/6.3
+./managed/stg/epel
+./managed/stg/epel/6
+./managed/dev
+./managed/dev/ius
+./managed/dev/ius/6
+./managed/dev/updates
+./managed/dev/updates/6.4
+./managed/dev/updates/6.3
+./managed/dev/epel
+./managed/dev/epel/6
+./static
+./static/os
+./static/os/6.4
+./static/os/6.3
+
