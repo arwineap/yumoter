@@ -19,22 +19,20 @@ We think that all we need to define a repo is three parameters.
 if no upstreamurl: We are authoritative. No syncs.
 if no promotionpath: static repo, doesn't change.
 
-###
-###
-###
+---
 path     = epel/6
 upstream      = rsync://mirrors.kernel.org/fedora-epel/6/x86_64/
 promotionpath = ['wildwest', 'beta', 'live']
 
 basepath + / + path + / + promotionpath[i]
 
-###
+---
 path     = gnrepo/6
 promotionpath = ['wildwest', 'beta', 'live']
 
 basepath + / + path + / + promotionpath[i]
 
-###
+---
 path = os/6.5
 upstream  = rsync://mirrors.kernel.org/centos/6.4/os/x86_64/Packages/
 
