@@ -50,6 +50,8 @@ class yumoter:
             # Does this repo have a path for promotion?
             if 'promotionpath' in self.repoConfig[repo]:
                 for path in self.repoConfig[repo]['promotionpath']:
+                    print "path", path
+                    print "repo", repo
                     repopath.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repo][path], path))
                 print "promopath:"
                 for entry in repopath:
