@@ -3,10 +3,14 @@ import sys, os, json, errno, subprocess, yum
 
 class yumoter:
     def __init__(self, configFile, repobasepath):
-        self.repoConfig = self._getConfig(configFile)
+        self.repoConfig = self.reloadConfig(configFile)
         self.yb = yum.YumBase()
         self.yb.setCacheDir()
         self.repobasepath = repobasepath
+
+    def reloadConfig(self, jsonFile):
+        _getConfig(jsonFile)
+        _getPaths()
 
     def _getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')
@@ -39,9 +43,28 @@ class yumoter:
         depDicts = yb.findDeps([pkgObj])
         return depDicts
 
+    def _getPaths(self):
+        for repo in self.repoConfig:
+            print 'reponame:', repo
+            repopath = []
+            # Does this repo have a path for promotion?
+            if 'promotionpath' in self.repoConfig[repo]:
+                for path in self.repoConfig[repo][promotionpath]:
+                    repopath.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repo][path], path))
+                print "promopath:"
+                for entry in repopath:
+                    print "\t%s" % entry
+            else:
+                # repo does not have a path for promotion
+                repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo][path]))
+                print "repopath: %s" repopath[0]
+            self.repoConfig[repo]['fullpaths'] = repopath
+
+
     def syncRepos(self, configFile=None):
         if not configFile:
             configFile = self.repoConfig
+
 '''
     def repoSearch(self, pkgName, repos):
 
