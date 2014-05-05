@@ -76,13 +76,15 @@ class yumoter:
 
 
     def syncRepos(self):
+        outputList = []
         for repo in self.repoConfig:
             # Only repos with upstream set need to be synced.
             if 'upstream' in self.repoConfig[repo]:
                 # If the dst dir doesn't exist, create it.
                 if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
                     self._mkPaths()
-                output = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
+                outputList.append(self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress']))
+        return outputList
 
 '''
     def repoSearch(self, pkgName, repos):
