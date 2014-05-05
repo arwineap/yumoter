@@ -30,15 +30,20 @@ class yumoter:
     def _runRsync(self, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
         sysCall = ['rsync'] + args + [rsrc, rdst]
-        print sysCall
-        return
+        rsyncStdout = []
+        rsyncStderr = []
         p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         for line in iter(p.stdout.readline, ""):
-            sys.stdout.write(line.strip() + '\r\n')
+            stdoutLine = line.strip() + '\r\n'
+            rsyncStdout.append(stdoutLine)
+            sys.stdout.write(stdoutLine)
             sys.stdout.flush()
         for line in iter(p.stderr.readline, ""):
-            sys.stderr.write(line.strip() + '\r\n')
+            stderrLine = line.strip() + '\r\n'
+            rsyncStderr.append(stderrLine)
+            sys.stderr.write(stderrLine)
             sys.stderr.flush()
+        return (stdoutLine, stderrLine)
         # TODO check return status please. Stop coding like a 12 year old.
 
     def getDeps(self, pkgObj):
@@ -62,8 +67,8 @@ class yumoter:
         for repo in self.repoConfig:
             if 'upstream' in self.repoConfig[repo]:
                 # This repo has an upstream, it will be synced.
-                self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
-
+                a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
+                print a
 
 '''
     def repoSearch(self, pkgName, repos):
