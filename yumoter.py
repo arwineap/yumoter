@@ -3,10 +3,10 @@ import sys, os, json, errno, subprocess, yum
 
 class yumoter:
     def __init__(self, configFile, repobasepath):
+        self.repobasepath = repobasepath
         self.reloadConfig(configFile)
         self.yb = yum.YumBase()
         self.yb.setCacheDir()
-        self.repobasepath = repobasepath
 
     def reloadConfig(self, jsonFile):
         self.repoConfig = self._getConfig(jsonFile)
