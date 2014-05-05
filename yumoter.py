@@ -16,7 +16,7 @@ class yumoter:
         fh = open(jsonFile, 'r')
         jsonOutput = json.load(fh)
         fh.close()
-        return jsonOutput[0]
+        return jsonOutput
 
     def _mkdir_p(self, path):
         try:
