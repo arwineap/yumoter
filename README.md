@@ -19,4 +19,27 @@ We think that all we need to define a repo is three parameters.
 if no upstreamurl: We are authoritative. No syncs.
 if no promotionpath: static repo, doesn't change.
 
+###
+###
+###
+path     = epel/6
+upstream      = rsync://mirrors.kernel.org/fedora-epel/6/x86_64/
+promotionpath = ['wildwest', 'beta', 'live']
+
+basepath + / + path + / + promotionpath[i]
+
+###
+path     = gnrepo/6
+promotionpath = ['wildwest', 'beta', 'live']
+
+basepath + / + path + / + promotionpath[i]
+
+###
+path = os/6.5
+upstream  = rsync://mirrors.kernel.org/centos/6.4/os/x86_64/Packages/
+
+basepath + / + path
+
+
+
 I think promotionpath should be a list. Lists are ordered, so we can define things like ["dev", "stg", "prd"] or ["wildwest", "beta", "live"]. Will also allow us to solve where to promote to using srcIndex+1.
