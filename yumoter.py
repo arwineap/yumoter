@@ -59,10 +59,8 @@ class yumoter:
 
 
     def syncRepos(self):
-        print 'bar'
         for repo in self.repoConfig:
-            print repo
-            if 'upstream' in repo:
+            if 'upstream' in self.repoConfig[repo]:
                 # This repo has an upstream, it will be synced.
                 _runRsync(repo['upstream'], repo['fullpaths'][0], ['-av', '--progress'])
 
