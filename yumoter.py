@@ -87,6 +87,7 @@ class yumoter:
                     print self.repoConfig[repo]['fullpaths']
                 #a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
                 #print a
+        print self.repoConfig
 
 '''
     def repoSearch(self, pkgName, repos):
