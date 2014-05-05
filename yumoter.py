@@ -30,6 +30,7 @@ class yumoter:
     def _runRsync(self, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
         sysCall = ['rsync'] + args + [rsrc, rdst]
+        print 'sysCall', sysCall
         rsyncStdout = []
         rsyncStderr = []
         p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
