@@ -80,7 +80,7 @@ class yumoter:
             if 'upstream' in self.repoConfig[repo]:
                 # If the dst dir doesn't exist, create it.
                 if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
-                    _mkPaths()
+                    self._mkPaths()
                 a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
                 print a
 
