@@ -33,5 +33,5 @@ repos['ius-6']['upstream'] = 'rsync://mirror.rackspace.com/ius/stable/Redhat/6/x
 repos['ius-6']['path'] = 'ius/6'
 
 fh = open('config/repos.json', 'w')
-fh.write(json.dumps(repos))
+fh.write(json.dumps(repos, sort_keys=True, indent=4, seperators=(',', ': ')))
 fh.close()
