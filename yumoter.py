@@ -57,7 +57,7 @@ class yumoter:
             else:
                 # repo does not have a path for promotion
                 repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo][path]))
-                print "repopath: %s" repopath[0]
+                print "repopath: %s" % repopath[0]
             self.repoConfig[repo]['fullpaths'] = repopath
 
 
