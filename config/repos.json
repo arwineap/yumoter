@@ -25,22 +25,13 @@
         "path": "os/6.4",
         "upstream": "rsync://mirrors.kernel.org/centos/6.4/os/x86_64/Packages/"
     },
-    "updates-63": {
-        "path": "updates/6.3",
+    "updates-6": {
+        "path": "updates/6",
         "promotionpath": [
             "wildwest",
             "beta",
             "live"
         ],
-        "upstream": "rsync://vault.centos.org/6.3/updates/x86_64/Packages/"
-    },
-    "updates-64": {
-        "path": "updates/6.4",
-        "promotionpath": [
-            "wildwest",
-            "beta",
-            "live"
-        ],
-        "upstream": "rsync://mirrors.kernel.org/centos/6.4/updates/x86_64/Packages/"
+        "upstream": "rsync://mirrors.kernel.org/centos/6/updates/x86_64/Packages/"
     }
 }
