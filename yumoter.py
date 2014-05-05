@@ -82,7 +82,8 @@ class yumoter:
                 if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
                     self._mkPaths()
                 else:
-                    print 'foo'
+                    print "foo"
+                    print self.repoConfig[repo]['fullpaths']
                 #a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
                 #print a
             else:
