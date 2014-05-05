@@ -43,7 +43,7 @@ class yumoter:
             rsyncStderr.append(stderrLine)
             sys.stderr.write(stderrLine)
             sys.stderr.flush()
-        return (stdoutLine, stderrLine)
+        return (rsyncStdout, rsyncStderr)
         # TODO check return status please. Stop coding like a 12 year old.
 
     def getDeps(self, pkgObj):
