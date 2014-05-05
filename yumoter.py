@@ -66,7 +66,7 @@ class yumoter:
         masterPathList = []
         for repo in self.repoConfig:
             if 'promotionpath' in self.repoConfig[repo]:
-                for entry in self.repoConfig[repo]['promotionpath']:
+                for entry in self.repoConfig[repo]['fullpaths']:
                     masterPathList.append(entry)
         for entry in masterPathList:
             if not os.path.isdir(entry):
