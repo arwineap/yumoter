@@ -19,11 +19,11 @@
     },
     "os-63": {
         "path": "os/6.3",
-        "upstream": "rsync://vault.centos.org/6.3/os/x86_64/Packages/"
+        "upstream": "rsync://mirrors.kernel.org/centos/6.3/os/x86_64/Packages/"
     },
     "os-64": {
         "path": "os/6.4",
-        "upstream": "rsync://mirrors.kernel.org/centos/6.4/os/x86_64/Packages/"
+        "upstream": "rsync://archive.kernel.org/centos/6.3/os/x86_64/Packages/"
     },
     "updates-6": {
         "path": "updates/6",

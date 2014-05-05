@@ -5,10 +5,10 @@ reposbasepath = '/home/aarwine/projects/yumoter/repos'
 
 # static real path = "%s/%s/%s" % (reposbasepath, type, path)
 repos['os-64'] = {}
-repos['os-64']['upstream'] = 'rsync://mirrors.kernel.org/centos/6.4/os/x86_64/Packages/'
+repos['os-64']['upstream'] = 'rsync://archive.kernel.org/centos/6.4/os/x86_64/Packages/'
 repos['os-64']['path'] = 'os/6.4'
 repos['os-63'] = {}
-repos['os-63']['upstream'] = 'rsync://mirrors.kernel.org/centos/6.3/os/x86_64/Packages/'
+repos['os-63']['upstream'] = 'rsync://archive.kernel.org/centos/6.3/os/x86_64/Packages/'
 repos['os-63']['path'] = 'os/6.3'
 
 repos['updates-6'] = {}
