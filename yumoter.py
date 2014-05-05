@@ -52,13 +52,13 @@ class yumoter:
                 for promopath in self.repoConfig[repo]['promotionpath']:
                     print "path", path
                     print "repo", repo
-                    repopath.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repo][path], promopath))
+                    repopath.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repo]['path'], promopath))
                 print "promopath:"
                 for entry in repopath:
                     print "\t%s" % entry
             else:
                 # repo does not have a path for promotion
-                repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo][path]))
+                repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo]['path']))
                 print "repopath: %s" % repopath[0]
             self.repoConfig[repo]['fullpaths'] = repopath
 
