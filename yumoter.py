@@ -81,8 +81,8 @@ class yumoter:
                 # If the dst dir doesn't exist, create it.
                 if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
                     self._mkPaths()
-                a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
-                print a
+                #a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
+                #print a
 
 '''
     def repoSearch(self, pkgName, repos):
