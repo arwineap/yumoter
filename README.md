@@ -38,6 +38,6 @@ upstream  = rsync://mirrors.kernel.org/centos/6.4/os/x86_64/Packages/
 
 basepath + / + path
 
-
+---
 
 I think promotionpath should be a list. Lists are ordered, so we can define things like ["dev", "stg", "prd"] or ["wildwest", "beta", "live"]. Will also allow us to solve where to promote to using srcIndex+1.
