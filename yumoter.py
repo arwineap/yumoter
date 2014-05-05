@@ -1,10 +1,12 @@
+#!/usr/bin/env python2
 import sys, os, json, errno, subprocess, yum
 
 class yumoter:
-    def __init__(self, configFile):
+    def __init__(self, configFile, repobasepath):
         self.repoConfig = self.getConfig(configFile)
         self.yb = yum.YumBase()
         self.yb.setCacheDir()
+        self.repobasepath = repobasepath
 
     def getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')
