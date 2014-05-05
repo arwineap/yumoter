@@ -14,9 +14,9 @@ class yumoter:
 
     def _getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')
-        jsonOutput = fh.readlines()
+        jsonOutput = json.load(fh)
         fh.close()
-        return json.loads(jsonOutput[0])
+        return jsonOutput[0]
 
     def _mkdir_p(self, path):
         try:
