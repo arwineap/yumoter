@@ -30,6 +30,8 @@ class yumoter:
     def _runRsync(self, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
         sysCall = ['rsync'] + args + [rsrc, rdst]
+        print sysCall
+        return
         p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         for line in iter(p.stdout.readline, ""):
             sys.stdout.write(line.strip() + '\r\n')
@@ -56,9 +58,12 @@ class yumoter:
             self.repoConfig[repo]['fullpaths'] = repopath
 
 
-    def syncRepos(self, configFile=None):
-        if not configFile:
-            configFile = self.repoConfig
+    def syncRepos(self):
+        for repo in self.repoConfig:
+            if 'upstream' in repo:
+                # This repo has an upstream, it will be synced.
+                _runRsync(repo['upstream'], repo['fullpaths'][0], ['-av', '--progress'])
+
 
 '''
     def repoSearch(self, pkgName, repos):
