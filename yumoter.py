@@ -9,8 +9,8 @@ class yumoter:
         self.repobasepath = repobasepath
 
     def reloadConfig(self, jsonFile):
-        _getConfig(jsonFile)
-        _getPaths()
+        self._getConfig(jsonFile)
+        self._getPaths()
 
     def _getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')
