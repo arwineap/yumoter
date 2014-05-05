@@ -71,7 +71,7 @@ class yumoter:
         for entry in masterPathList:
             if not os.path.isdir(entry):
                 print "creating missing dir: %s" % entry
-                _mkdir_p(entry)
+                self._mkdir_p(entry)
 
 
     def syncRepos(self):
