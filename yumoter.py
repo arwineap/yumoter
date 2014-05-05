@@ -65,7 +65,7 @@ class yumoter:
     def _mkPaths(self):
         masterPathList = []
         for repo in self.repoConfig:
-            if 'promotionpath' in self.repoConfig[repo]:
+            if 'fullpaths' in self.repoConfig[repo]:
                 for entry in self.repoConfig[repo]['fullpaths']:
                     masterPathList.append(entry)
         for entry in masterPathList:
