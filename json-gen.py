@@ -11,14 +11,10 @@ repos['os-63'] = {}
 repos['os-63']['upstream'] = 'rsync://vault.centos.org/6.3/os/x86_64/Packages/'
 repos['os-63']['path'] = 'os/6.3'
 
-repos['updates-64'] = {}
-repos['updates-64']['upstream'] = 'rsync://mirrors.kernel.org/centos/6.4/updates/x86_64/Packages/'
-repos['updates-64']['path'] = 'updates/6.4'
-repos['updates-64']['promotionpath'] = ['wildwest', 'beta', 'live']
-repos['updates-63'] = {}
-repos['updates-63']['upstream'] = 'rsync://vault.centos.org/6.3/updates/x86_64/Packages/'
-repos['updates-63']['path'] = 'updates/6.3'
-repos['updates-63']['promotionpath'] = ['wildwest', 'beta', 'live']
+repos['updates-6'] = {}
+repos['updates-6']['upstream'] = 'rsync://mirrors.kernel.org/centos/6/updates/x86_64/Packages/'
+repos['updates-6']['path'] = 'updates/6'
+repos['updates-6']['promotionpath'] = ['wildwest', 'beta', 'live']
 
 repos['epel-6'] = {}
 repos['epel-6']['upstream'] = 'rsync://mirrors.kernel.org/fedora-epel/6/x86_64/'
