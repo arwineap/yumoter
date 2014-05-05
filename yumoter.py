@@ -62,11 +62,25 @@ class yumoter:
                 repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo]['path']))
             self.repoConfig[repo]['fullpaths'] = repopath
 
+    def _mkPaths(self):
+        masterPathList = []
+        for repo in self.repoConfig:
+            if 'promotionpath' in self.repoConfig[repo]:
+                for entry in self.repoConfig[repo]['promotionpath']:
+                    masterPathList.append(entry)
+        for entry in masterPathList:
+            if not os.path.isdir(entry):
+                print "creating missing dir: %s" % entry
+                _mkdir_p(entry)
+
 
     def syncRepos(self):
         for repo in self.repoConfig:
+            # Only repos with upstream set need to be synced.
             if 'upstream' in self.repoConfig[repo]:
-                # This repo has an upstream, it will be synced.
+                # If the dst dir doesn't exist, create it.
+                if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
+                    _mkPaths()
                 a = self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress'])
                 print a
 
