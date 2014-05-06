@@ -88,11 +88,15 @@ class yumoter:
         print "Adding repo:", repo
         self.yb.add_enable_repo(repo)
 
+    def _returnNewestByNameArch(self, patternsList):
+        pkgs = yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
+        for pkg in pkgs:
+            print "%s: %s" % (pkg, pkg.summary)
+
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo
         # by url.
-        #env = _translateToMajorVer(env)
         loadrepos = []
         shortenv = self._translateToMajorVer(env)
         for repo in self.repoConfig:
@@ -104,8 +108,6 @@ class yumoter:
                 # This repo cares only about major versions
                 if self._translateToMajorVer(osVer) == self.repoConfig[repo]['osver']:
                     loadrepos.append(repo)
-        # now I have a list of reponames (keys from self.repoConfig) which I should
-        # iterate over to find proper URLs for the loader.
         for repo in loadrepos:
             if len(self.repoConfig[repo]['fullurls']) == 1:
                 # This repo only has one env. Repo is not promoted.
