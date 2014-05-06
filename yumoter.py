@@ -7,7 +7,7 @@ class yumoter:
         self.repobasepath = repobasepath
         self.reloadConfig(configFile)
         self.yb = yum.YumBase()
-        self.yb.setCacheDir()
+        self.yb.setCacheDir(yum.misc.getCacheDir())
         self.yb.repos.disableRepo("*")
 
     def _getConfig(self, jsonFile):
