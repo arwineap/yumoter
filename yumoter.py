@@ -86,7 +86,7 @@ class yumoter:
 
     def _loadRepo(self, reponame, repo):
         print "Adding repo:", reponame, repo
-        self.yb.add_enable_repo(reponame, repo)
+        self.yb.add_enable_repo(reponame, [repo])
 
     def _returnNewestByNameArch(self, patternsList):
         pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
