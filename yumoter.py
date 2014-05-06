@@ -26,8 +26,9 @@ class yumoter:
     def _translateToMajorVer(self, ver):
         # I: 6.4
         # O: 6
-        result = ver.split('.')[0]
-        return result
+        if '.' in ver:
+            ver = ver.split('.')[0]
+        return ver
 
     def _getPaths(self):
         for repo in self.repoConfig:
