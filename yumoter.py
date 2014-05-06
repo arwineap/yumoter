@@ -8,7 +8,7 @@ class yumoter:
         self.reloadConfig(configFile)
         self.yb = yum.YumBase()
         self.yb.setCacheDir()
-        self.yb.disableRepo("*")
+        self.yb.repos.disableRepo("*")
 
     def _getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')
