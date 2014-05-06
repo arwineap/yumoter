@@ -91,7 +91,7 @@ class yumoter:
         #env = _translateToMajorVer(env)
         loadrepos = []
         loadurls = []
-        shortenv = _translateToMajorVer(env)
+        shortenv = self._translateToMajorVer(env)
         for repo in self.repoConfig:
             if '.' in self.repoConfig[repo]['osver']:
                 # This is a repo sensative to minor versions
@@ -99,7 +99,7 @@ class yumoter:
                     loadrepos.append(repo)
             else:
                 # This repo cares only about major versions
-                if _translateToMajorVer(osVer) == self.repoConfig[repo]['osver']:
+                if self._translateToMajorVer(osVer) == self.repoConfig[repo]['osver']:
                     loadrepos.append(repo)
         # now I have a list of reponames (keys from self.repoConfig) which I should
         # iterate over to find proper URLs for the loader.
