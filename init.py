@@ -3,7 +3,7 @@ import yumoter
 yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 
 yumoter.loadRepos("6.4", "wildwest")
-yumoter._returnNewestByNameArch(["httpd"])
+yumoter._returnNewestByNameArch("httpd")
 
 #     def loadRepos(self, osVer, env):
 '''
