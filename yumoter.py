@@ -88,7 +88,7 @@ class yumoter:
     def _loadRepo(self, reponame, repo):
         if reponame == "os-64":
             print "Adding repo:", reponame, repo
-            self.yb.add_enable_repo(reponame, baseurls=[repo], mirrorlist=None)
+            self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
 
     def _returnNewestByNameArch(self, patternsList):
         print patternsList
