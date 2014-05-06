@@ -3,6 +3,7 @@ import sys, os, json, errno, subprocess, yum
 
 class yumoter:
     def __init__(self, configFile, repobasepath):
+        self.urlbasepath = "http://yumoter.gnmedia.net"
         self.repobasepath = repobasepath
         self.reloadConfig(configFile)
         self.yb = yum.YumBase()
@@ -41,6 +42,15 @@ class yumoter:
                 # repo does not have a path for promotion
                 repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo]['path']))
             self.repoConfig[repo]['fullpaths'] = repopath
+
+    def _getURLs(self):
+        for repo in self.repoConfig
+            repoURLs = []
+            if 'promotionpath' in self.repoConfig[repo]:
+                for promopath in self.repoConfig[repo]['promotionpath']:
+                    print "url:", "%s/%s/%s" % (self.urlbasepath, self.repoConfig[repo]['path'], promopath)
+            else:
+                print "url:", "%s/%s" % (self.urlbasepath, self.repoConfig[repo]['path'])
 
     def _mkPaths(self):
         masterPathList = []
@@ -90,7 +100,9 @@ class yumoter:
                 if _translateToMajorVer(osVer) == self.repoConfig[repo]['osver']:
                     loadrepos.append(repo)
         # now I have a list of reponames (keys from self.repoConfig) which I should
-        # iterate over to load.
+        # iterate over to find proper URLs for the loader.
+        for repo in loadrepos:
+            if self.repoConfig[repo]['fullpaths']
 
 
 
@@ -112,6 +124,7 @@ class yumoter:
     def reloadConfig(self, jsonFile):
         self.repoConfig = self._getConfig(jsonFile)
         self._getPaths()
+        self._getURLs()
 
 '''
     def repoSearch(self, pkgName, repos):
