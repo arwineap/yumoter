@@ -8,10 +8,6 @@ class yumoter:
         self.yb = yum.YumBase()
         self.yb.setCacheDir()
 
-    def reloadConfig(self, jsonFile):
-        self.repoConfig = self._getConfig(jsonFile)
-        self._getPaths()
-
     def _getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')
         jsonOutput = json.load(fh)
@@ -26,6 +22,29 @@ class yumoter:
                 pass
             else:
                 raise
+
+    def _getPaths(self):
+        for repo in self.repoConfig:
+            repopath = []
+            # Does this repo have a path for promotion?
+            if 'promotionpath' in self.repoConfig[repo]:
+                for promopath in self.repoConfig[repo]['promotionpath']:
+                    repopath.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repo]['path'], promopath))
+            else:
+                # repo does not have a path for promotion
+                repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo]['path']))
+            self.repoConfig[repo]['fullpaths'] = repopath
+
+    def _mkPaths(self):
+        masterPathList = []
+        for repo in self.repoConfig:
+            if 'fullpaths' in self.repoConfig[repo]:
+                for entry in self.repoConfig[repo]['fullpaths']:
+                    masterPathList.append(entry)
+        for entry in masterPathList:
+            if not os.path.isdir(entry):
+                print "creating missing dir: %s" % entry
+                self._mkdir_p(entry)
 
     def _runRsync(self, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
@@ -51,30 +70,6 @@ class yumoter:
         depDicts = yb.findDeps([pkgObj])
         return depDicts
 
-    def _getPaths(self):
-        for repo in self.repoConfig:
-            repopath = []
-            # Does this repo have a path for promotion?
-            if 'promotionpath' in self.repoConfig[repo]:
-                for promopath in self.repoConfig[repo]['promotionpath']:
-                    repopath.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repo]['path'], promopath))
-            else:
-                # repo does not have a path for promotion
-                repopath.append("%s/%s" % (self.repobasepath, self.repoConfig[repo]['path']))
-            self.repoConfig[repo]['fullpaths'] = repopath
-
-    def _mkPaths(self):
-        masterPathList = []
-        for repo in self.repoConfig:
-            if 'fullpaths' in self.repoConfig[repo]:
-                for entry in self.repoConfig[repo]['fullpaths']:
-                    masterPathList.append(entry)
-        for entry in masterPathList:
-            if not os.path.isdir(entry):
-                print "creating missing dir: %s" % entry
-                self._mkdir_p(entry)
-
-
     def syncRepos(self):
         outputList = []
         for repo in self.repoConfig:
@@ -85,6 +80,10 @@ class yumoter:
                     self._mkPaths()
                 outputList.append(self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress']))
         return outputList
+
+    def reloadConfig(self, jsonFile):
+        self.repoConfig = self._getConfig(jsonFile)
+        self._getPaths()
 
 '''
     def repoSearch(self, pkgName, repos):
