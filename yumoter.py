@@ -84,6 +84,10 @@ class yumoter:
         return (rsyncStdout, rsyncStderr)
         # TODO check return status please. Stop coding like a 12 year old.
 
+    def _loadRepo(self, repo):
+        print "Adding repo:", repo
+        self.yb.add_enable_repo(repo)
+
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo
@@ -106,11 +110,10 @@ class yumoter:
             if len(self.repoConfig[repo]['fullurls']) == 1:
                 # This repo only has one env. Repo is not promoted.
                 # Load the only URL you can
-                print "Adding repo:", self.repoConfig[repo]['fullurls'][0]
-                self.yb.add_enable_repo(repo, self.repoConfig[repo]['fullurls'][0])
+                self._loadRepo(self.repoConfig[repo]['fullurls'][0])
             else:
-                print "Adding repo:", self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)]
-                self.yb.add_enable_repo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+                self._loadRepo(self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+
 
     def getDeps(self, pkgObj):
         depDicts = yb.findDeps([pkgObj])
