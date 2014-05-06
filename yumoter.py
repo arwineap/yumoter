@@ -86,9 +86,10 @@ class yumoter:
         # TODO check return status please. Stop coding like a 12 year old.
 
     def _loadRepo(self, reponame, repo):
-        if reponame == "os-64":
-            print "Adding repo:", reponame, repo
-            self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
+        print "Adding repo:", reponame, repo
+        # if repo is unicode and not a string, this will silently do the wrong thing
+        # and all actions against the repo will fail.
+        self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
 
     def _returnNewestByNameArch(self, patternsList):
         print patternsList
