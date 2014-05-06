@@ -94,8 +94,7 @@ class yumoter:
     def _returnNewestByNameArch(self, patternsList):
         print patternsList
         pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
-        for pkg in pkgs:
-            print "%s: %s" % (pkg, pkg.summary)
+        return pkgs
 
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
