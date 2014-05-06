@@ -85,7 +85,7 @@ class yumoter:
         # TODO check return status please. Stop coding like a 12 year old.
 
     def _loadRepo(self, reponame, repo):
-        print "Adding repo:", repo
+        print "Adding repo:", reponame, repo
         self.yb.add_enable_repo(reponame, repo)
 
     def _returnNewestByNameArch(self, patternsList):
