@@ -73,6 +73,27 @@ class yumoter:
         return (rsyncStdout, rsyncStderr)
         # TODO check return status please. Stop coding like a 12 year old.
 
+    def loadRepos(self, osVer, env):
+        # this should load all the repos for osVer in env
+        # Should use an internal method to load one repo
+        # by url.
+        #env = _translateToMajorVer(env)
+        loadrepos = []
+        shortenv = _translateToMajorVer(env)
+        for repo in self.repoConfig:
+            if '.' in self.repoConfig[repo]['osver']:
+                # This is a repo sensative to minor versions
+                if osVer == self.repoConfig[repo]['osver']:
+                    loadrepos.append(repo)
+            else:
+                # This repo cares only about major versions
+                if _translateToMajorVer(osVer) == self.repoConfig[repo]['osver']:
+                    loadrepos.append(repo)
+        # now I have a list of reponames (keys from self.repoConfig) which I should
+        # iterate over to load.
+
+
+
     def getDeps(self, pkgObj):
         depDicts = yb.findDeps([pkgObj])
         return depDicts

@@ -7,3 +7,5 @@ output = yumoter.syncRepos()
 print "errors:"
 for entry in output:
 	print entry[1]
+
+print yumoter.repoConfig
