@@ -4,6 +4,7 @@ yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos'
 
 yumoter.loadRepos("6.4", "wildwest")
 a = yumoter._returnNewestByNameArch(["httpd"])
+a = a[0]
 print a
 print a.name
 print a.arch
