@@ -86,8 +86,9 @@ class yumoter:
         # TODO check return status please. Stop coding like a 12 year old.
 
     def _loadRepo(self, reponame, repo):
-        print "Adding repo:", reponame, repo
-        self.yb.add_enable_repo(reponame, baseurls=[repo])
+        if reponame == "os-64":
+            print "Adding repo:", reponame, repo
+            self.yb.add_enable_repo(reponame, baseurls=[repo])
 
     def _returnNewestByNameArch(self, patternsList):
         pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
