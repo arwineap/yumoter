@@ -102,7 +102,8 @@ class yumoter:
         # now I have a list of reponames (keys from self.repoConfig) which I should
         # iterate over to find proper URLs for the loader.
         for repo in loadrepos:
-            if self.repoConfig[repo]['fullpaths']
+            if self.repoConfig[repo]['fullpaths']:
+                pass
 
 
 
