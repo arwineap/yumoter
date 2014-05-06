@@ -90,7 +90,6 @@ class yumoter:
         # by url.
         #env = _translateToMajorVer(env)
         loadrepos = []
-        loadurls = []
         shortenv = self._translateToMajorVer(env)
         for repo in self.repoConfig:
             if '.' in self.repoConfig[repo]['osver']:
@@ -107,14 +106,11 @@ class yumoter:
             if len(self.repoConfig[repo]['fullurls']) == 1:
                 # This repo only has one env. Repo is not promoted.
                 # Load the only URL you can
-                loadurls.append(self.repoConfig[repo]['fullurls'][0])
+                print "Adding repo:", self.repoConfig[repo]['fullurls'][0]
+                self.yb.add_enable_repo(repo, self.repoConfig[repo]['fullurls'][0])
             else:
-                loadurls.append(self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
-        print "loading this crap:"
-        for url in loadurls:
-            print url
-
-
+                print "Adding repo:", self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)]
+                self.yb.add_enable_repo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
 
     def getDeps(self, pkgObj):
         depDicts = yb.findDeps([pkgObj])
