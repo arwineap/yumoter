@@ -89,7 +89,7 @@ class yumoter:
         self.yb.add_enable_repo(repo)
 
     def _returnNewestByNameArch(self, patternsList):
-        pkgs = yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
+        pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
         for pkg in pkgs:
             print "%s: %s" % (pkg, pkg.summary)
 
