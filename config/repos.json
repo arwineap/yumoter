@@ -1,5 +1,6 @@
 {
     "epel-6": {
+        "osver": "6",
         "path": "epel/6",
         "promotionpath": [
             "wildwest",
@@ -9,6 +10,7 @@
         "upstream": "rsync://mirrors.kernel.org/fedora-epel/6/x86_64/"
     },
     "ius-6": {
+        "osver": "6",
         "path": "ius/6",
         "promotionpath": [
             "wildwest",
@@ -18,14 +20,17 @@
         "upstream": "rsync://mirror.rackspace.com/ius/stable/Redhat/6/x86_64/"
     },
     "os-63": {
+        "osver": "6.3",
         "path": "os/6.3",
         "upstream": "rsync://archive.kernel.org/centos/6.3/os/x86_64/Packages/"
     },
     "os-64": {
+        "osver": "6.4",
         "path": "os/6.4",
         "upstream": "rsync://archive.kernel.org/centos/6.4/os/x86_64/Packages/"
     },
     "updates-6": {
+        "osver": "6",
         "path": "updates/6",
         "promotionpath": [
             "wildwest",
