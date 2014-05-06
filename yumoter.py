@@ -84,9 +84,9 @@ class yumoter:
         return (rsyncStdout, rsyncStderr)
         # TODO check return status please. Stop coding like a 12 year old.
 
-    def _loadRepo(self, repo):
+    def _loadRepo(self, reponame, repo):
         print "Adding repo:", repo
-        self.yb.add_enable_repo(repo)
+        self.yb.add_enable_repo(reponame, repo)
 
     def _returnNewestByNameArch(self, patternsList):
         pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
@@ -112,9 +112,9 @@ class yumoter:
             if len(self.repoConfig[repo]['fullurls']) == 1:
                 # This repo only has one env. Repo is not promoted.
                 # Load the only URL you can
-                self._loadRepo(self.repoConfig[repo]['fullurls'][0])
+                self._loadRepo(repo, self.repoConfig[repo]['fullurls'][0])
             else:
-                self._loadRepo(self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+                self._loadRepo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
 
 
     def getDeps(self, pkgObj):
