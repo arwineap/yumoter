@@ -90,6 +90,7 @@ class yumoter:
         # by url.
         #env = _translateToMajorVer(env)
         loadrepos = []
+        loadurls = []
         shortenv = _translateToMajorVer(env)
         for repo in self.repoConfig:
             if '.' in self.repoConfig[repo]['osver']:
@@ -103,8 +104,15 @@ class yumoter:
         # now I have a list of reponames (keys from self.repoConfig) which I should
         # iterate over to find proper URLs for the loader.
         for repo in loadrepos:
-            if self.repoConfig[repo]['fullpaths']:
-                pass
+            if len(self.repoConfig[repo]['fullurls']) == 1:
+                # This repo only has one env. Repo is not promoted.
+                # Load the only URL you can
+                loadurls.append(self.repoConfig[repo]['fullurls'][0])
+            else:
+                loadurls.append(self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+        print "loading this crap:"
+        for url in loadurls:
+            print url
 
 
 
