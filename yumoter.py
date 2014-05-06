@@ -44,7 +44,7 @@ class yumoter:
             self.repoConfig[repo]['fullpaths'] = repopath
 
     def _getURLs(self):
-        for repo in self.repoConfig
+        for repo in self.repoConfig:
             repoURLs = []
             if 'promotionpath' in self.repoConfig[repo]:
                 for promopath in self.repoConfig[repo]['promotionpath']:
