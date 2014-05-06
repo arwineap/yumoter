@@ -48,9 +48,10 @@ class yumoter:
             repoURLs = []
             if 'promotionpath' in self.repoConfig[repo]:
                 for promopath in self.repoConfig[repo]['promotionpath']:
-                    print "url:", "%s/%s/%s" % (self.urlbasepath, self.repoConfig[repo]['path'], promopath)
+                    repoURLs.append("%s/%s/%s" % (self.urlbasepath, self.repoConfig[repo]['path'], promopath))
             else:
-                print "url:", "%s/%s" % (self.urlbasepath, self.repoConfig[repo]['path'])
+                repoURLs.append("%s/%s" % (self.urlbasepath, self.repoConfig[repo]['path']))
+            self.repoConfig[repo]['fullurls'] = repoURLs
 
     def _mkPaths(self):
         masterPathList = []
