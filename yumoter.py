@@ -121,8 +121,10 @@ class yumoter:
 
 
     def getDeps(self, pkgObj):
-        depDicts = yb.findDeps([pkgObj])
-        return depDicts
+        if type(pkgObj) != list:
+            pkgObj = [pkgObj]
+        result = yb.findDeps(pkgObj)
+        return result
 
     def syncRepos(self):
         outputList = []

@@ -12,6 +12,11 @@ print a.version
 print a.release
 print a.size
 
+b = yumoter.getDeps(a)
+print "deps:"
+for pkg in b:
+	print pkg.name, pkg.arch, pkg.version
+
 
 
 
