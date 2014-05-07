@@ -107,7 +107,7 @@ class yumoter:
         choppedurl = url.replace("%s/" % self.urlbasepath, '')
         for tmprepo in self.repoConfig:
             if choppedurl.startswith(self.repoConfig[tmprepo]['path']):
-                return repo
+                return tmprepo
         print "ERROR: _urlToRepo could not evaluate which repo this url came from"
         sys.exit(1)
 
@@ -124,7 +124,7 @@ class yumoter:
         choppedurl = url.replace("%s/" % self.urlbasepath, '')
         # choppedurl = epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm
         # check to see if this repo is even promoted
-        if 'promotionpath' not in self.repoConfig[repo].keys():
+        if not self._repoIsPromoted(repo):
             print "ERROR: _urlToPromoPath was called on a repo which isn't promoted."
             sys.exit(1)
         # determine current env
