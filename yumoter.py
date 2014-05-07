@@ -124,7 +124,7 @@ class yumoter:
         # determine current env
         currenv = os.path.basename(os.path.dirname(choppedurl))
         newenv = self.repoConfig[repo]['promotionpath'][self.repoConfig[repo]['promotionpath'].index(currenv)+1]
-        result = _urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
+        result = self._urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
 
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
