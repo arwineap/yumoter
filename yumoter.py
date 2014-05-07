@@ -133,11 +133,23 @@ class yumoter:
         result = self._urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
         return result
 
+    def _hardlink(self, src, dst):
+        if os.path.exists(dst):
+            print "INFO: link already exists: %s" % (dst)
+            return True
+        print "Linking %s -> %s" % (src, dst)
+        os.link(src, dst)
+        if not os.path.exists(dst):
+            print "ERROR: linking failed."
+            sys.exit(1)
+        return True
+
     def promotePkg(self, pkg):
         if self._repoIsPromoted(self._urlToRepo(pkg.remote_url)):
             oldpath = self._urlToPath(pkg.remote_url)
             newpath = self._urlToPromoPath(pkg.remote_url)
             print "promoting %s -> %s" % (oldpath, newpath)
+            _hardlink(oldpath, newpath)
         else:
             print "skipping %s because it is not in a promoted repo" % pkg.name
 
