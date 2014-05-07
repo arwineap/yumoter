@@ -96,6 +96,11 @@ class yumoter:
         pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
         return pkgs
 
+    def _getDeps(self, pkgObj):
+        if type(pkgObj) != list:
+            pkgObj = [pkgObj]
+        return = self.yb.findDeps(pkgObj)
+
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo
@@ -123,8 +128,13 @@ class yumoter:
     def getDeps(self, pkgObj):
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
-        result = self.yb.findDeps(pkgObj)
-        return result
+        depsDict = self._getDeps(pkgObj)
+        resultDict = {}
+        for key in depsDict[pkgObj]:
+            # we need key, this is the pkg we are resolving
+            # wesuggest = self.yb.bestPackagesFromList(depsDict[key])
+            print "we need", key
+            print "we suggest", self.yb.bestPackagesFromList(depsDict[key])
 
     def syncRepos(self):
         outputList = []
