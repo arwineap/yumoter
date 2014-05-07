@@ -135,6 +135,7 @@ class yumoter:
             print "deps:"
             for dep in depsDict[origPkg]:
                 print dep
+                print depsDict[origPkg][dep]
             #print 'needs', depsDict[origPkg]
         '''
         for key in depsDict[pkgObj]:
