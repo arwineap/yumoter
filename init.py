@@ -5,15 +5,14 @@ yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos'
 yumoter.loadRepos("6.4", "wildwest")
 a = yumoter._returnNewestByNameArch(["openssl"])
 a = a[0]
-'''
 print a
-print a.name
-print a.arch
-print a.epoch
-print a.version
-print a.release
-print a.size
-'''
+print "name", a.name
+print "arch", a.arch
+print "epoch", a.epoch
+print "version", a.version
+print "release", a.release
+print "size", a.size
+print "remote_url", a.remote_url
 
 b = yumoter.getDeps(a)
 
