@@ -149,7 +149,7 @@ class yumoter:
             oldpath = self._urlToPath(pkg.remote_url)
             newpath = self._urlToPromoPath(pkg.remote_url)
             print "promoting %s -> %s" % (oldpath, newpath)
-            _hardlink(oldpath, newpath)
+            self._hardlink(oldpath, newpath)
         else:
             print "skipping %s because it is not in a promoted repo" % pkg.name
 
