@@ -103,19 +103,25 @@ class yumoter:
     def _urlToPath(self, url):
         return "%s%s" % (self.repobasepath, url.replace(self.urlbasepath, ''))
 
+    def _urlToRepo(self, url):
+        choppedurl = url.replace("%s/" % self.urlbasepath, '')
+        for tmprepo in self.repoConfig:
+            if choppedurl.startswith(self.repoConfig[tmprepo]['path']):
+                return repo
+        print "ERROR: _urlToRepo could not evaluate which repo this url came from"
+        sys.exit(1)
+
+    def _repoIsPromoted(self, repo):
+        if 'promotionpath' not in self.repoConfig[repo].keys():
+            return False
+        return True
+
     def _urlToPromoPath(self, url):
         # takes a url of an rpm
         # returns path of promoted dir
         # url = 'http://yumoter.gnmedia.net/epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm'
-        repo = False
+        repo = self._urlToRepo(url)
         choppedurl = url.replace("%s/" % self.urlbasepath, '')
-        for tmprepo in self.repoConfig:
-            if choppedurl.startswith(self.repoConfig[tmprepo]['path']):
-                repo = tmprepo
-                break
-        if not repo:
-            print "ERROR: _urlToPromoPath could not identify which repo this came from."
-            sys.exit(1)
         # choppedurl = epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm
         # check to see if this repo is even promoted
         if 'promotionpath' not in self.repoConfig[repo].keys():
