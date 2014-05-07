@@ -130,11 +130,13 @@ class yumoter:
             pkgObj = [pkgObj]
         depsDict = self._getDeps(pkgObj)
         resultDict = {}
+        print depsDict
+        '''
         for key in depsDict[pkgObj]:
             # we need key, this is the pkg we are resolving
             # wesuggest = self.yb.bestPackagesFromList(depsDict[key])
             print "we need", key
-            print "we suggest", self.yb.bestPackagesFromList(depsDict[key])
+            print "we suggest", self.yb.bestPackagesFromList(depsDict[key])'''
 
     def syncRepos(self):
         outputList = []
