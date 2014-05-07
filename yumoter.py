@@ -132,7 +132,10 @@ class yumoter:
         resultDict = {}
         for origPkg in depsDict:
             print 'origPkg', origPkg
-            print 'needs', depsDict[origPkg]
+            print "deps:"
+            for dep in depsDict[origPkg]:
+                print dep
+            #print 'needs', depsDict[origPkg]
         '''
         for key in depsDict[pkgObj]:
             # we need key, this is the pkg we are resolving
