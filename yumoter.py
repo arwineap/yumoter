@@ -110,7 +110,7 @@ class yumoter:
         repo = False
         choppedurl = url.replace("%s/" % baseurl, '')
         for tmprepo in self.repoConfig:
-            if choppedurl.startswith self.repoConfig[tmprepo]['path']:
+            if choppedurl.startswith(self.repoConfig[tmprepo]['path']):
                 repo = tmprepo
                 break
         if not repo:
