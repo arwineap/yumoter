@@ -127,6 +127,15 @@ class yumoter:
         result = self._urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
         return result
 
+    def promotePkg(self, pkg):
+        oldpath = self._urlToPath(pkg.remote_url)
+        newpath = self._urlToPromoPath(pkg.remote_url)
+        print "promoting %s -> %s" % (oldpath, newpath)
+
+    def promotePkgs(self, pkgList):
+        pass
+
+
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo

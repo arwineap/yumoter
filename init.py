@@ -24,4 +24,5 @@ print "###"
 for pkg in b:
 	print pkg
 	for dep in b[pkg]:
-		print "\t%s - %s" % (dep, dep.remote_url)
+		#print "\t%s - %s" % (dep, dep.remote_url)
+		yumotor.promotePkg(dep)
