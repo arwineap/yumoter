@@ -108,7 +108,7 @@ class yumoter:
         # returns path of promoted dir
         # url = 'http://yumoter.gnmedia.net/epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm'
         repo = False
-        choppedurl = url.replace("%s/" % baseurl, '')
+        choppedurl = url.replace("%s/" % self.urlbasepath, '')
         for tmprepo in self.repoConfig:
             if choppedurl.startswith(self.repoConfig[tmprepo]['path']):
                 repo = tmprepo
