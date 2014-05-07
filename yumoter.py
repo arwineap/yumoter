@@ -134,9 +134,12 @@ class yumoter:
         return result
 
     def promotePkg(self, pkg):
-        oldpath = self._urlToPath(pkg.remote_url)
-        newpath = self._urlToPromoPath(pkg.remote_url)
-        print "promoting %s -> %s" % (oldpath, newpath)
+        if self._repoIsPromoted(self._urlToRepo(pkg.remote_url)):
+            oldpath = self._urlToPath(pkg.remote_url)
+            newpath = self._urlToPromoPath(pkg.remote_url)
+            print "promoting %s -> %s" % (oldpath, newpath)
+        else:
+            print "skipping %s because it is not in a promoted repo"
 
     def promotePkgs(self, pkgList):
         pass
