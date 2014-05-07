@@ -100,6 +100,9 @@ class yumoter:
             pkgObj = [pkgObj]
         return self.yb.findDeps(pkgObj)
 
+    def _urlToPath(self, url):
+        return "%s%s" % (self.repobasepath, url.replace(self.urlbasepath, ''))
+
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo

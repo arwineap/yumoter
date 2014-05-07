@@ -21,4 +21,4 @@ print "###"
 for pkg in b:
 	print pkg
 	for dep in b[pkg]:
-		print "\t%s" % dep
+		print "\t%s - %s" % (dep, dep.remote_url)
