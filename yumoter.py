@@ -154,7 +154,8 @@ class yumoter:
             print "skipping %s because it is not in a promoted repo" % pkg.name
 
     def promotePkgs(self, pkgList):
-        pass
+        for pkg in pkgList:
+            self.promotePkg(pkg)
 
 
     def loadRepos(self, osVer, env):
