@@ -15,6 +15,12 @@ print a.size
 
 b = yumoter.getDeps(a)
 
+print "###"
+
+for entry in b:
+	for foo in entry[b]:
+		print foo
+
 '''
 print "deps:"
 for pkg in b:

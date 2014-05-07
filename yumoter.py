@@ -129,7 +129,7 @@ class yumoter:
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
         depsDict = self._getDeps(pkgObj)
-        resultList = []
+        resultDict = {}
         for origPkg in depsDict:
             print 'origPkg', origPkg
             print "deps:"
@@ -137,13 +137,14 @@ class yumoter:
                 print dep
                 print "suggested:", self.yb.bestPackagesFromList(depsDict[origPkg][dep])
                 print "all that fill:", depsDict[origPkg][dep]
-            #print 'needs', depsDict[origPkg]
-        '''
-        for key in depsDict[pkgObj]:
-            # we need key, this is the pkg we are resolving
-            # wesuggest = self.yb.bestPackagesFromList(depsDict[key])
-            print "we need", key
-            print "we suggest", self.yb.bestPackagesFromList(depsDict[key])'''
+                suggestedDep = self.yb.bestPackagesFromList(depsDict[origPkg][dep])
+                if len(suggestedDep) > 1:
+                    print "WARNING: found multiple suggested dependencies"
+                    print suggestedDep
+                if origPkg not in resultDict:
+                    resultDict[origPkg] = []
+                resultDict[origPkg].append(suggestedDep[0])
+        return resultDict
 
     def syncRepos(self):
         outputList = []
