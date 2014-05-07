@@ -14,6 +14,7 @@ print "release", a.release
 print "size", a.size
 print "remote_url", a.remote_url
 
+print yumoter._urlToPath(a.remote_url)
 print yumoter._urlToPromoPath(a.remote_url)
 
 b = yumoter.getDeps(a)
