@@ -103,6 +103,29 @@ class yumoter:
     def _urlToPath(self, url):
         return "%s%s" % (self.repobasepath, url.replace(self.urlbasepath, ''))
 
+    def _urlToPromoPath(self, url):
+        # takes a url of an rpm
+        # returns path of promoted dir
+        # url = 'http://yumoter.gnmedia.net/epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm'
+        repo = False
+        choppedurl = url.replace("%s/" % baseurl, '')
+        for tmprepo in self.repoConfig:
+            if choppedurl.startswith self.repoConfig[tmprepo]['path']:
+                repo = tmprepo
+                break
+        if not repo:
+            print "ERROR: _urlToPromoPath could not identify which repo this came from."
+            sys.exit(1)
+        # choppedurl = epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm
+        # check to see if this repo is even promoted
+        if 'promotionpath' not in self.repoConfig[repo].keys():
+            print "ERROR: _urlToPromoPath was called on a repo which isn't promoted."
+            sys.exit(1)
+        # determine current env
+        currenv = os.path.basename(os.path.dirname(choppedurl))
+        newenv = self.repoConfig[repo]['promotionpath'][self.repoConfig[repo]['promotionpath'].index(currenv)+1]
+        result = _urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
+
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo
