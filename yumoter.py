@@ -135,7 +135,7 @@ class yumoter:
             print "deps:"
             for dep in depsDict[origPkg]:
                 print dep
-                print "suggested:", yb.bestPackagesFromList(depsDict[origPkg][dep])
+                print "suggested:", self.yb.bestPackagesFromList(depsDict[origPkg][dep])
                 print "all that fill:", depsDict[origPkg][dep]
             #print 'needs', depsDict[origPkg]
         '''
