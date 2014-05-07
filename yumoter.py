@@ -92,7 +92,6 @@ class yumoter:
         self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
 
     def _returnNewestByNameArch(self, patternsList):
-        print patternsList
         pkgs = self.yb.pkgSack.returnNewestByNameArch(patterns=patternsList)
         return pkgs
 

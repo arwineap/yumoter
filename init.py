@@ -19,4 +19,7 @@ b = yumoter.getDeps(a)
 
 print "###"
 
-print b
+for pkg in b:
+	print "pkg", pkg
+	for dep in b[pkg]:
+		print "\t%s" % dep
