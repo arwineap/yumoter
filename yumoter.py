@@ -129,13 +129,14 @@ class yumoter:
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
         depsDict = self._getDeps(pkgObj)
-        resultDict = {}
+        resultList = []
         for origPkg in depsDict:
             print 'origPkg', origPkg
             print "deps:"
             for dep in depsDict[origPkg]:
                 print dep
-                print depsDict[origPkg][dep]
+                print "suggested:", yb.bestPackagesFromList(depsDict[origPkg][dep])
+                print "all that fill:", depsDict[origPkg][dep]
             #print 'needs', depsDict[origPkg]
         '''
         for key in depsDict[pkgObj]:
