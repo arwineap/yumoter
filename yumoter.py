@@ -99,7 +99,7 @@ class yumoter:
     def _getDeps(self, pkgObj):
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
-        return = self.yb.findDeps(pkgObj)
+        return self.yb.findDeps(pkgObj)
 
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
