@@ -143,7 +143,8 @@ class yumoter:
                     print suggestedDep
                 if origPkg not in resultDict:
                     resultDict[origPkg] = []
-                resultDict[origPkg].append(suggestedDep[0])
+                if suggestedDep[0] not in resultDict[origPkg]:
+                    resultDict[origPkg].append(suggestedDep[0])
         return resultDict
 
     def syncRepos(self):
