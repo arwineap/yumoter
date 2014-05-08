@@ -226,6 +226,7 @@ class yumoter:
         # Deps that are not already satisfied, getNeededDeps()
         # This method actually just cleans the output of getDeps.
         depsDict = self.getDeps(pkgObj)
+        resultDict = {}
         for pkg in depsDict:
             for dep in depsDict[pkg]:
                 if self._repoIsPromoted(self._urlToRepo(dep.remote_url)):
