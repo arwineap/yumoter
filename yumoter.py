@@ -112,7 +112,7 @@ class yumoter:
         sys.exit(1)
 
     def _pathToUrl(self, path):
-        return "%s/%s" % (self.urlbasepath, path.replace("%s/" % self.repobasename, ''))
+        return "%s/%s" % (self.urlbasepath, path.replace("%s/" % self.repobasepath, ''))
 
     def _repoIsPromoted(self, repo):
         if 'promotionpath' not in self.repoConfig[repo].keys():
