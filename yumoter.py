@@ -149,7 +149,7 @@ class yumoter:
             print "ERROR: _addChangedRepo did not receive the proper repoTuple type", repoTuple
         if repoTuple[0] not in self.repoConfig.keys():
             print "ERROR: _addChangedRepo supplied a repoTuple with a non-existing repo", repoTuple
-        if 'promotionpath' not in self.repoConfig[repoTuple]:
+        if 'promotionpath' not in self.repoConfig[repoTuple[0]]:
             print 'ERROR: _addChangedRepo supplied a repoTuple with a non-promoting repo', repoTuple
         if repoTuple[1] not in self.repoConfig[repoTuple[0]]['promotionpath']:
             print "ERROR: _addChangedRepo was supplied a promotionpath that doesn't exist", repoTuple
