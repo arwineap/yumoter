@@ -111,10 +111,18 @@ class yumoter:
         print "ERROR: _urlToRepo could not evaluate which repo this url came from"
         sys.exit(1)
 
+    def _pathToUrl(self, path):
+        return "%s/%s" % (self.urlbasepath, path.replace("%s/" % repobasename, ''))
+
     def _repoIsPromoted(self, repo):
         if 'promotionpath' not in self.repoConfig[repo].keys():
             return False
         return True
+
+    def _urlToEnv(self, url):
+        choppedurl = url.replace("%s/" % self.urlbasepath, '')
+        resultenv = os.path.basename(os.path.dirname(choppedurl))
+        return resultenv
 
     def _urlToPromoPath(self, url):
         # takes a url of an rpm
@@ -134,6 +142,7 @@ class yumoter:
         return result
 
     def _hardlink(self, src, dst):
+        # src and dst are PATHS, not URLs
         if os.path.exists(dst):
             print "INFO: link already exists: %s" % (dst)
             return True
@@ -142,6 +151,19 @@ class yumoter:
         if not os.path.exists(dst):
             print "ERROR: linking failed."
             sys.exit(1)
+        # Ok, file is linked, now we need to do some fancy footwork.
+        # The rule is, links never get removed from the first environment.
+        # Links do get removed as they get promoted through further environments.
+        # promotionpath = ['wildwest', 'beta', 'live']
+        # link wildwest -> beta
+        #   No deletions
+        # link beta -> live
+        #   Delete beta
+        ######
+        # Let's figure out what repo we're in, and which promopath
+        srcUrl = self._pathToUrl(src)
+        srcRepo = self.urlToRepo(srcUrl)
+
         return True
 
     def promotePkg(self, pkg):
