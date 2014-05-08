@@ -14,3 +14,8 @@ for entry in output:
     print "stderr"
     for line in entry[2]:
         print line
+
+for (repo, stdout, stderr) in output:
+    print "repo:", repo
+    print "stdout:", stdout
+    print "stderr:", stderr
