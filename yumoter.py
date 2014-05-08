@@ -309,11 +309,3 @@ class yumoter:
         self.repoConfig = self._getConfig(jsonFile)
         self._getPaths()
         self._getURLs()
-
-'''
-    def repoSearch(self, pkgName, repos):
-
-        pkgs = yb.pkgSack.returnNewestByNameArch(patterns=pkgName)
-        for pkg in pkgs:
-            print "%s: %s" % (pkg, pkg.summary)
-'''
