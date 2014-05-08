@@ -217,8 +217,11 @@ class yumoter:
                     print suggestedDep
                 if origPkg not in resultDict:
                     resultDict[origPkg] = []
-                if suggestedDep[0] not in resultDict[origPkg]:
-                    resultDict[origPkg].append(suggestedDep[0])
+                # If the repo is not a promotable repo, don't add it as a dep.
+                # It's already satisfied.
+                if self._repoIsPromoted(self._urlToRepo(suggestedDep[0].remote_url)):
+                    if suggestedDep[0] not in resultDict[origPkg]:
+                        resultDict[origPkg].append(suggestedDep[0])
         return resultDict
 
     def syncRepos(self):
