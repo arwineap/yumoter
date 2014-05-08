@@ -6,14 +6,11 @@ import yumoter
 yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 output = yumoter.syncRepos()
 
-print "STDOUT"
-for entry in output[0]:
-	for foo in entry:
-		print foo.strip()
-print "STDERR"
-for entry in output[1]:
-	for foo in entry:
-		print foo.strip()
-
-print "####"
-print output
+for entry in output:
+    print "repo", entry[0]
+    print "stdout"
+    for line in entry[1]:
+        print line
+    print "stderr"
+    for line in entry[2]:
+        print line

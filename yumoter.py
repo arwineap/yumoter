@@ -66,7 +66,7 @@ class yumoter:
                 print "creating missing dir: %s" % entry
                 self._mkdir_p(entry)
 
-    def _runRsync(self, rsrc, rdst, args):
+    def _runRsync(self, rsyncName, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
         sysCall = ['rsync'] + args + [rsrc, rdst]
         print 'sysCall', sysCall
@@ -83,7 +83,7 @@ class yumoter:
             rsyncStderr.append(stderrLine.strip())
             sys.stderr.write(stderrLine)
             sys.stderr.flush()
-        return (rsyncStdout, rsyncStderr)
+        return (rsyncName, rsyncStdout, rsyncStderr)
         # TODO check return status please. Stop coding like a 12 year old.
 
     def _loadRepo(self, reponame, repo):
@@ -302,7 +302,7 @@ class yumoter:
                 # If the dst dir doesn't exist, create it.
                 if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
                     self._mkPaths()
-                outputList.append(self._runRsync(self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress']))
+                outputList.append(self._runRsync(repo, self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress']))
         return outputList
 
     def reloadConfig(self, jsonFile):
