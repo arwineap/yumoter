@@ -228,7 +228,7 @@ class yumoter:
         depsDict = self.getDeps(pkgObj)
         for pkg in depsDict:
             for dep in depsDict[pkg]:
-                if self._repoIsPromoted(self.urlToRepo(dep.remote_url)):
+                if self._repoIsPromoted(self._urlToRepo(dep.remote_url)):
                     if pkg not in resultDict:
                         resultDict[pkg] = []
                     resultDict[pkg].append(dep)
