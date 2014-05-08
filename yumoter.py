@@ -203,7 +203,7 @@ class yumoter:
             syscall.append("--checksum=sha")
         syscall.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repoTuple[0]]['path'], repoTuple[1]))
         print "Generating metadata on: %s %s" % (repoTuple[0], repoTuple[1])
-        p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        p = subprocess.Popen(syscall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         for line in iter(p.stdout.readline, ""):
             stdoutLine = line.strip() + '\r\n'
             syscallStdout.append(stdoutLine)
