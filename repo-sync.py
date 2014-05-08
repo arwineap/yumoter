@@ -9,7 +9,8 @@ output = yumoter.syncRepos()
 print "STDOUT"
 for entry in output[0]:
 	for foo in entry:
-		print foo
+		print foo.strip()
 print "STDERR"
 for entry in output[1]:
-	print entry
+	for foo in entry:
+		print foo.strip()
