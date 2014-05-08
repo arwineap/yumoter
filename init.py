@@ -24,7 +24,7 @@ print yumoter._urlToEnv(a.remote_url)
 print 'end'
 
 
-b = yumoter.getDeps(a)
+b = yumoter.getNeededDeps(a)
 
 print "###"
 
