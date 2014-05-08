@@ -163,7 +163,12 @@ class yumoter:
         # Let's figure out what repo we're in, and which promopath
         srcUrl = self._pathToUrl(src)
         srcRepo = self.urlToRepo(srcUrl)
-
+        srcEnv = self.urlToEnv(srcUrl)
+        # Now that we've gathered information, let's determine if we need to
+        # clean up the srcLink
+        if self.repoConfig[srcRepo]['promotionpath'].index(srcEnv) != 0:
+            # TODO: This block signifies repos that need to be queued for createrepo.
+            os.remove(src)
         return True
 
     def promotePkg(self, pkg):
