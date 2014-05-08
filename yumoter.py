@@ -200,7 +200,7 @@ class yumoter:
         if self._translateToMajorVer(self.repoConfig[repoTuple[0]]['osver']) == 5:
             # centos 5 repos require this flag
             syscall.append("--checksum=sha")
-        syscall.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repoTuple[0]][path], repoTuple[1]))
+        syscall.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repoTuple[0]]['path'], repoTuple[1]))
         print syscall
 
 
