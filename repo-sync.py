@@ -14,3 +14,6 @@ print "STDERR"
 for entry in output[1]:
 	for foo in entry:
 		print foo.strip()
+
+print "####"
+print output
