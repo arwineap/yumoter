@@ -158,11 +158,11 @@ class yumoter:
     def _hardlink(self, src, dst):
         # src and dst are PATHS, not URLs
         srcUrl = self._pathToUrl(src)
-        srcRepo = self.urlToRepo(srcUrl)
-        srcEnv = self.urlToEnv(srcUrl)
+        srcRepo = self._urlToRepo(srcUrl)
+        srcEnv = self._urlToEnv(srcUrl)
         dstUrl = self._pathToUrl(dst)
-        dstRepo = self.urlToRepo(dstUrl)
-        dstEnv = self.urlToEnv(dstUrl)
+        dstRepo = self._urlToRepo(dstUrl)
+        dstEnv = self._urlToEnv(dstUrl)
         if os.path.exists(dst):
             print "INFO: link already exists: %s" % (dst)
             return True
