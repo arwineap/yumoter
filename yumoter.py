@@ -153,7 +153,8 @@ class yumoter:
             print 'ERROR: _addChangedRepo supplied a repoTuple with a non-promoting repo', repoTuple
         if repoTuple[1] not in self.repoConfig[repoTuple[0]]['promotionpath']:
             print "ERROR: _addChangedRepo was supplied a promotionpath that doesn't exist", repoTuple
-        self.changedRepos.append(repoTuple)
+        if repoTuple not in self.changedRepos:
+            self.changedRepos.append(repoTuple)
 
     def _hardlink(self, src, dst):
         # src and dst are PATHS, not URLs
