@@ -2,18 +2,29 @@
 
 
 import yumoter
+import smtplib
+import string
+from email.mime.text import MIMEText
 
 yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 output = yumoter.syncRepos()
 
-
+msgBody = []
 print "Repo sync updates\n\n"
 for (repo, stdout, stderr) in output:
-    print "######"
-    print "repo:", repo
-    print "stdout:"
+    msgBody.append("repo: %s" % repo)
+    msgBody.append("stdout:")
     for entry in stdout:
-        print "\t%s" % entry
-    print "stderr:"
+        msgBody.append("\t%s" % entry)
+    msgBody.append("stderr:")
     for entry in stderr:
-        print "\t%s" % entry
+        msgBody.append("\t%s" % entry)
+    msgBody.append("####")
+
+msg = MIMEText('\r\n'.join(msgBody))
+smtp = smtplib.SMTP('localhost', 25)
+msg["From"] = "alex.arwine@gorillanation.com"
+msg["To"] = "alex.arwine@evolvemediallc.com"
+msg["Subject"] = "[Repo sync] Updates"
+msg.add_header("Content-Type", "text/plain")
+smtp.sendmail(msg["From"], msg["To"], msg.as_string())
