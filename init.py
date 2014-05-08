@@ -33,3 +33,5 @@ for pkg in b:
 	for dep in b[pkg]:
 		#print "\t%s - %s" % (dep, dep.remote_url)
 		yumoter.promotePkg(dep)
+
+yumoter.createRepos()

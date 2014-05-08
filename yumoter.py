@@ -5,6 +5,7 @@ class yumoter:
     def __init__(self, configFile, repobasepath):
         self.urlbasepath = "http://yumoter.gnmedia.net"
         self.repobasepath = repobasepath
+        self.changedRepos = []
         self.reloadConfig(configFile)
         self.yb = yum.YumBase()
         self.yb.setCacheDir(yum.misc.getCacheDir())
@@ -141,8 +142,27 @@ class yumoter:
         result = self._urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
         return result
 
+    def _addChangedRepo(self, repoTuple):
+        # repoTuple = (repoName, envName)
+        # repoTuple = ("epel-6", "wildwest")
+        if len(repoTuple) != 2:
+            print "ERROR: _addChangedRepo did not receive the proper repoTuple type", repoTuple
+        if repoTuple[0] not in self.repoConfig.keys():
+            print "ERROR: _addChangedRepo supplied a repoTuple with a non-existing repo", repoTuple
+        if 'promotionpath' not in self.repoConfig[repoTuple]:
+            print 'ERROR: _addChangedRepo supplied a repoTuple with a non-promoting repo', repoTuple
+        if repoTuple[1] not in self.repoConfig[repoTuple[0]]['promotionpath']:
+            print "ERROR: _addChangedRepo was supplied a promotionpath that doesn't exist", repoTuple
+        self.changedRepos.append(repoTuple)
+
     def _hardlink(self, src, dst):
         # src and dst are PATHS, not URLs
+        srcUrl = self._pathToUrl(src)
+        srcRepo = self.urlToRepo(srcUrl)
+        srcEnv = self.urlToEnv(srcUrl)
+        dstUrl = self._pathToUrl(dst)
+        dstRepo = self.urlToRepo(dstUrl)
+        dstEnv = self.urlToEnv(dstUrl)
         if os.path.exists(dst):
             print "INFO: link already exists: %s" % (dst)
             return True
@@ -151,6 +171,8 @@ class yumoter:
         if not os.path.exists(dst):
             print "ERROR: linking failed."
             sys.exit(1)
+        # Queue the link destination for createrepo
+        self._addChangedRepo((dstRepo, dstEnv))
         # Ok, file is linked, now we need to do some fancy footwork.
         # The rule is, links never get removed from the first environment.
         # Links do get removed as they get promoted through further environments.
@@ -160,20 +182,39 @@ class yumoter:
         # link beta -> live
         #   Delete beta
         ######
-        # Let's figure out what repo we're in, and which promopath
-        srcUrl = self._pathToUrl(src)
-        srcRepo = self.urlToRepo(srcUrl)
-        srcEnv = self.urlToEnv(srcUrl)
         # Now that we've gathered information, let's determine if we need to
         # clean up the srcLink
         if self.repoConfig[srcRepo]['promotionpath'].index(srcEnv) != 0:
             # TODO: This block signifies repos that need to be queued for createrepo.
             print "INFO: deleting unneeded link: %s" % src
             os.remove(src)
+            # We removed the rpm from the source, we need to also createrepo on it.
+            self._addChangedRepo((srcRepo, srcEnv))
         return True
 
+    def _createRepo(self, repoTuple):
+        # Let's create repo metadata
+        syscallStdout = []
+        syscallStderr = []
+        syscall = ["createrepo"]
+        if self._translateToMajorVer(self.repoConfig[repoTuple[0]]['osver']) == 5:
+            # centos 5 repos require this flag
+            syscall.append("--checksum=sha")
+        syscall.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repoTuple[0]][path], repoTuple[1]))
+        print syscall
+
+
+
+    def createRepos(self):
+        # This method should run a createrepo on each of the entries in: self.changedRepos
+        # (repoName, envName)
+        for repoTuple in self.changedRepos:
+            self._createRepo(repoTuple)
+
+
     def promotePkg(self, pkg):
-        if self._repoIsPromoted(self._urlToRepo(pkg.remote_url)):
+        repo = self._urlToRepo(pkg.remote_url)
+        if self._repoIsPromoted(repo):
             oldpath = self._urlToPath(pkg.remote_url)
             newpath = self._urlToPromoPath(pkg.remote_url)
             print "promoting %s -> %s" % (oldpath, newpath)
