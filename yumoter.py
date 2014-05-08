@@ -203,7 +203,18 @@ class yumoter:
             syscall.append("--checksum=sha")
         syscall.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repoTuple[0]]['path'], repoTuple[1]))
         print syscall
-
+        p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        for line in iter(p.stdout.readline, ""):
+            stdoutLine = line.strip() + '\r\n'
+            syscallStdout.append(stdoutLine)
+            sys.stdout.write(stdoutLine)
+            sys.stdout.flush()
+        for line in iter(p.stderr.readline, ""):
+            stderrLine = line.strip() + '\r\n'
+            syscallStderr.append(stderrLine)
+            sys.stderr.write(stderrLine)
+            sys.stderr.flush()
+        return (syscallStdout, syscallStderr)
 
 
     def createRepos(self):
