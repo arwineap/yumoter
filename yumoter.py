@@ -168,6 +168,7 @@ class yumoter:
         # clean up the srcLink
         if self.repoConfig[srcRepo]['promotionpath'].index(srcEnv) != 0:
             # TODO: This block signifies repos that need to be queued for createrepo.
+            print "INFO: deleting unneeded link: %s" % src
             os.remove(src)
         return True
 
