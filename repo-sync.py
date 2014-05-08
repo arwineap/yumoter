@@ -9,6 +9,7 @@ output = yumoter.syncRepos()
 
 print "Repo sync updates\n\n"
 for (repo, stdout, stderr) in output:
+    print "######"
     print "repo:", repo
     print "stdout:"
     for entry in stdout:
