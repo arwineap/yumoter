@@ -55,7 +55,7 @@ neededDeps = yumoter.getNeededDeps(searchPkgList[pkgChoice])
 for idx, dep in enumerate(neededDeps[searchPkgList[pkgChoice]]):
     print("%s: %s-%s-%s.%s" % (idx, dep.name, dep.version, dep.release, dep.arch))
 promoteall = raw_input("Continue? (Y/N): ")
-if promoteall.lower() != "y" and promoteall.lower() != "n":
+if not promoteall.lower() != "y" and not promoteall.lower() != "n":
     print "invalid selection"
     sys.exit(1)
 
