@@ -271,13 +271,11 @@ class yumoter:
         for origPkg in depsDict:
             for dep in depsDict[origPkg]:
                 suggestedDep = self.yb.bestPackagesFromList(depsDict[origPkg][dep])
-                if len(suggestedDep) > 1:
-                    print "WARNING: found multiple suggested dependencies; defaulting to %s" % suggestedDep[0]
-                    print suggestedDep
                 if origPkg not in resultDict:
                     resultDict[origPkg] = []
-                if suggestedDep[0] not in resultDict[origPkg]:
-                    resultDict[origPkg].append(suggestedDep[0])
+                for suggDep in suggestedDep:
+                    if suggDep not in resultDict[origPkg]:
+                        resultDict[origPkg].append(suggDep)
         return resultDict
 
     def getNeededDeps(self, pkgObj):
