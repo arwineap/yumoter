@@ -12,7 +12,7 @@ import sys
 # environments
 # upstream
 
-parser = argparse.ArgumentParser(description='testing argparse.')
+parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.')
 
 subparsers = parser.add_subparsers(help='sub-command help', dest='subprocess_name')
 
