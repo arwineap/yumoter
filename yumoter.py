@@ -283,11 +283,11 @@ class yumoter:
         # Deps that are not already satisfied, getNeededDeps()
         # This method actually just cleans the output of getDeps.
         depsDict = self.getDeps(pkgObj)
-        print 'testing'
-        print depsDict
         resultDict = {}
         for pkg in depsDict:
             for dep in depsDict[pkg]:
+                # Take out deps from repos that are not promoted. These do not
+                # need to be promoted.
                 if self._repoIsPromoted(self._urlToRepo(dep.remote_url)):
                     if pkg not in resultDict:
                         resultDict[pkg] = []
