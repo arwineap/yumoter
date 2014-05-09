@@ -275,6 +275,7 @@ class yumoter:
                     resultDict[origPkg] = []
                 for suggDep in suggestedDep:
                     if suggDep not in resultDict[origPkg]:
+                        print 'foo'
                         resultDict[origPkg].append(suggDep)
         return resultDict
 
