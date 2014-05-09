@@ -37,6 +37,10 @@ if args.subprocess_name == 'list':
 yumoter.loadRepos(args.centosversion, args.environment)
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
+
+for pkg in searchPkgList:
+    print pkg
+sys.exit(0)
 print(searchPkgList)
 
 print "Please select which pkg to promote:"
