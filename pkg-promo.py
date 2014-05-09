@@ -5,12 +5,6 @@ import yumoter
 import argparse
 import sys
 
-# ./pkg-promo.py -c 6.4 -e wildwest
-# should also support:
-# ./pkg-promo.py --list
-# repoName osVer
-# environments
-# upstream
 
 parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.')
 
