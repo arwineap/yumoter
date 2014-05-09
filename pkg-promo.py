@@ -33,7 +33,7 @@ if args.subprocess_name == 'list':
         print(repo)
         for key in yumoter.repoConfig[repo]:
             if isinstance(yumoter.repoConfig[repo][key], basestring):
-                print("\t%s %s" % (key, yumoter.repoConfig[repo][key]))
+                print("\t%s: %s" % (key, yumoter.repoConfig[repo][key]))
             else:
                 print("\t%s:" % key)
                 for entry in yumoter.repoConfig[repo][key]:
