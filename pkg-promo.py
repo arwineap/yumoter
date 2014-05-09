@@ -30,30 +30,27 @@ yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos'
 
 if args.subprocess_name == 'list':
     for repo in yumoter.repoConfig:
-        print repo
+        print(repo)
         for key in yumoter.repoConfig[repo]:
             if isinstance(yumoter.repoConfig[repo][key], basestring):
-                print "\t", key, yumoter.repoConfig[repo][key]
+                print("\t", key, yumoter.repoConfig[repo][key])
             else:
-                print "\t%s:" % key
+                print("\t%s:" % key)
                 for entry in yumoter.repoConfig[repo][key]:
-                    print "\t\t%s" % entry
+                    print("\t\t%s" % entry)
         print "####"
     sys.exit()
 
 yumoter.loadRepos(args.centosversion, args.environment)
 searchPkgList = yumoter._returnNewestByNameArch([args.search])
-print searchPkgList
+print(searchPkgList)
 
-
-'''
-print "name", a.name
-print "arch", a.arch
-print "epoch", a.epoch
-print "version", a.version
-print "release", a.release
-print "size", a.size
-'''
-
+print "Please select which pkg to promote:"
 for idx, pkg in enumerate(searchPkgList):
     print("%s: %s-%s-%s.%s" % (idx, pkg.name, pkg.version, pkg.release, pkg.arch))
+pkgChoice = int(raw_input(": "))
+
+print("Getting deps for %s-%s-%s.%s" % (searchPkgList[pkgChoice].name, searchPkgList[pkgChoice].version, searchPkgList[pkgChoice].release, searchPkgList[pkgChoice].arch))
+neededDeps = yumoter.getNeededDeps(searchPkgList[pkgChoice])
+
+print neededDeps
