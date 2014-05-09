@@ -55,5 +55,5 @@ print "release", a.release
 print "size", a.size
 '''
 
-for pkg in searchPkgList:
-    print("%s-%s-%s.%s" % (pkg.name, pkg.version, pkg.release, pkg.arch))
+for idx, pkg in enumerate(searchPkgList):
+    print("%s: %s-%s-%s.%s" % (idx, pkg.name, pkg.version, pkg.release, pkg.arch))
