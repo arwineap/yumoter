@@ -60,7 +60,6 @@ if promoteall.lower() != "y" and promoteall.lower() != "n":
     print "invalid selection"
     sys.exit(1)
 
-print "Here's the original pkg", searchPkgList[pkgChoice]
-print "Here's the dep pkgs", neededDeps[searchPkgList[pkgChoice]]
-
-print "ok, let's do stuff?"
+yumoter.promotePkg(searchPkgList[pkgChoice])
+yumoter.promotePkgs(neededDeps[searchPkgList[pkgChoice]])
+yumoter.createRepos()
