@@ -56,4 +56,4 @@ print "size", a.size
 '''
 
 for pkg in searchPkgList:
-    print pkg.name, pkg.version, pkg.arch
+    print pkg.name, pkg.version, pkg.release, pkg.arch
