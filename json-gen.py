@@ -40,6 +40,30 @@ repos['ius-6']['path'] = 'ius/6'
 repos['ius-6']['promotionpath'] = ['wildwest', 'beta', 'live']
 repos['ius-6']['osver'] = '6'
 
+repos['puppet-5'] = {}
+repos['puppet-5']['upstream'] = 'rsync://yum.puppetlabs.com/packages/yum/el/5/products/x86_64/'
+repos['puppet-5']['path'] = 'puppet/5'
+repos['puppet-5']['promotionpath'] = ['wildwest', 'beta', 'live']
+repos['puppet-5']['osver'] = '5'
+
+repos['puppet-6'] = {}
+repos['puppet-6']['upstream'] = 'rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/'
+repos['puppet-6']['path'] = 'puppet/6'
+repos['puppet-6']['promotionpath'] = ['wildwest', 'beta', 'live']
+repos['puppet-6']['osver'] = '6'
+
+repos['puppetmaster-6'] = {}
+repos['puppetmaster-6']['upstream'] = 'rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/'
+repos['puppetmaster-6']['path'] = 'puppetmaster/6'
+repos['puppetmaster-6']['promotionpath'] = ['wildwest', 'beta', 'live']
+repos['puppetmaster-6']['osver'] = '6'
+
+repos['puppetdependencies-6'] = {}
+repos['puppetdependencies-6']['upstream'] = 'rsync://yum.puppetlabs.com/packages/yum/el/6/dependencies/x86_64/'
+repos['puppetdependencies-6']['path'] = 'puppetdependencies/6'
+repos['puppetdependencies-6']['promotionpath'] = ['wildwest', 'beta', 'live']
+repos['puppetdependencies-6']['osver'] = '6'
+
 fh = open('config/repos.json', 'w')
 fh.write(json.dumps(repos, sort_keys=True, indent=4, separators=(',', ': ')))
 fh.close()
