@@ -44,3 +44,16 @@ if args.subprocess_name == 'list':
 yumoter.loadRepos(args.centosversion, args.environment)
 searchPkgList = yumoter._returnNewestByNameArch([args.search])
 print searchPkgList
+
+
+'''
+print "name", a.name
+print "arch", a.arch
+print "epoch", a.epoch
+print "version", a.version
+print "release", a.release
+print "size", a.size
+'''
+
+for pkg in searchPkgList:
+    print pkg.name, pkg.version, pkg.arch
