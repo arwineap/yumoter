@@ -24,12 +24,12 @@ args = parser.parse_args()
 yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 searchString = args[0]
 
-if options.listFlag:
+if args.list:
 	# TODO
 	print "TODO"
 	print "repo config dump was requested"
 	sys.exit(1)
 
-yumoter.loadRepos(options.centosVer, options.env)
+yumoter.loadRepos(args.centosversion, args.environment)
 searchPkgList = yumoter._returnNewestByNameArch(["openssl"])
 print searchPkgList
