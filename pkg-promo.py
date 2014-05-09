@@ -38,7 +38,6 @@ if args.subprocess_name == 'list':
                 print("\t%s:" % key)
                 for entry in yumoter.repoConfig[repo][key]:
                     print("\t\t%s" % entry)
-        print "####"
     sys.exit()
 
 yumoter.loadRepos(args.centosversion, args.environment)
