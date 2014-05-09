@@ -12,24 +12,29 @@ import sys
 # environments
 # upstream
 
-parser = argparse.ArgumentParser(description='Promote some packages.')
-plist = parser.add_argument_group('plist')
-plist.add_argument('-l', '--list', action="store_true", help="List repo information with environments associated with")
-promote = parser.add_argument_group('promote')
-promote.add_argument('searchpkg', help="Package to search for")
-promote.add_argument('-c', '--centosversion', help="Version of centos to promote from.", metavar="centosversion", default="6.4")
-promote.add_argument('-e', '--environment', help="Environment to promote from")
+parser = argparse.ArgumentParser(description='testing argparse.')
+
+subparsers = parser.add_subparsers(help='sub-command help', dest='subprocess_name')
+
+parser_list = subparsers.add_parser('list', help='list crap out')
+parser_list.add_argument('--verbose', action="store_true", default=False, help="List out full repo config details")
+
+parser_search = subparsers.add_parser('search', help='search for pkgs')
+parser_search.add_argument('search', help='specify a pkg to search for')
+parser_search.add_argument('-c', '--centosversion', help="Specify centos version", default="6.4")
+parser_search.add_argument('-e', '--environment', help="Specify enviornment / promotion path", required=True)
+
 args = parser.parse_args()
 
-yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
-searchString = args[0]
 
-if args.list:
-	# TODO
-	print "TODO"
-	print "repo config dump was requested"
-	sys.exit(1)
+yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+
+if args.subprocess_name == 'list':
+    # TODO
+    print "TODO"
+    print "repo config dump was requested"
+    sys.exit(1)
 
 yumoter.loadRepos(args.centosversion, args.environment)
-searchPkgList = yumoter._returnNewestByNameArch(["openssl"])
+searchPkgList = yumoter._returnNewestByNameArch([args.search])
 print searchPkgList
