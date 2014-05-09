@@ -53,4 +53,5 @@ pkgChoice = int(raw_input(": "))
 print("Getting deps for %s-%s-%s.%s" % (searchPkgList[pkgChoice].name, searchPkgList[pkgChoice].version, searchPkgList[pkgChoice].release, searchPkgList[pkgChoice].arch))
 neededDeps = yumoter.getNeededDeps(searchPkgList[pkgChoice])
 
-print neededDeps[searchPkgList[pkgChoice]]
+for idx, dep in enumerate(neededDeps[searchPkgList[pkgChoice]]):
+    print("%s: %s-%s-%s.%s" % (idx, dep.name, dep.version, dep.release, dep.arch))
