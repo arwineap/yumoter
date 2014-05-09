@@ -17,7 +17,6 @@ parser = argparse.ArgumentParser(description='The yumoter promo script will assi
 subparsers = parser.add_subparsers(help='sub-command help', dest='subprocess_name')
 
 parser_list = subparsers.add_parser('list', help='List repo information')
-parser_list.add_argument('--verbose', action="store_true", default=False, help="List out full repo config details")
 
 parser_search = subparsers.add_parser('search', help='search for pkgs')
 parser_search.add_argument('search', help='specify a pkg to search for')
