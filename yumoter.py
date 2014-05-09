@@ -275,7 +275,6 @@ class yumoter:
                     resultDict[origPkg] = []
                 for suggDep in suggestedDep:
                     if suggDep not in resultDict[origPkg]:
-                        print suggDep
                         resultDict[origPkg].append(suggDep)
         return resultDict
 
@@ -284,6 +283,8 @@ class yumoter:
         # Deps that are not already satisfied, getNeededDeps()
         # This method actually just cleans the output of getDeps.
         depsDict = self.getDeps(pkgObj)
+        print 'testing'
+        print depsDict
         resultDict = {}
         for pkg in depsDict:
             for dep in depsDict[pkg]:
