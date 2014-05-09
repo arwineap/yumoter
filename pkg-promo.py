@@ -13,10 +13,12 @@ import sys
 # upstream
 
 parser = argparse.ArgumentParser(description='Promote some packages.')
-parser.add_argument('searchpkg', help="Package to search for")
-parser.add_argument('-c', '--centosversion', help="Version of centos to promote from.", metavar="centosversion", default="6.4")
-parser.add_argument('-e', '--environment', help="Environment to promote from")
-parser.add_argument('-l', '--list', action="store_true", help="List repo information with environments associated with")
+plist = parser.add_argument_group('plist')
+plist.add_argument('-l', '--list', action="store_true", help="List repo information with environments associated with")
+promote = parser.add_argument_group('promote')
+promote.add_argument('searchpkg', help="Package to search for")
+promote.add_argument('-c', '--centosversion', help="Version of centos to promote from.", metavar="centosversion", default="6.4")
+promote.add_argument('-e', '--environment', help="Environment to promote from")
 args = parser.parse_args()
 
 yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
