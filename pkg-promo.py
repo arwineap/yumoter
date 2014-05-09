@@ -56,9 +56,10 @@ for idx, dep in enumerate(neededDeps[searchPkgList[pkgChoice]]):
     print("%s: %s-%s-%s.%s" % (idx, dep.name, dep.version, dep.release, dep.arch))
 promoteall = raw_input("Continue? (Y/N): ")
 
-if promoteall.lower == "n":
+
+if promoteall.lower() == "n":
     sys.exit(0)
-if promoteall.lower != "y":
+if promoteall.lower() != "y":
     print("invalid selection.")
     sys.exit(1)
 
