@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser(description='The yumoter promo script will assi
 
 subparsers = parser.add_subparsers(help='sub-command help', dest='subprocess_name')
 
-parser_list = subparsers.add_parser('list', help='list crap out')
+parser_list = subparsers.add_parser('list', help='List repo information')
 parser_list.add_argument('--verbose', action="store_true", default=False, help="List out full repo config details")
 
 parser_search = subparsers.add_parser('search', help='search for pkgs')
@@ -30,10 +30,11 @@ args = parser.parse_args()
 yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 
 if args.subprocess_name == 'list':
-    # TODO
-    print "TODO"
-    print "repo config dump was requested"
-    sys.exit(1)
+    for repo in yumoter.repoConfig:
+        print repo
+        for key in yumoter.repoConfig[repo]:
+            print key, yumoter.repoConfig[repo][key]
+    sys.exit()
 
 yumoter.loadRepos(args.centosversion, args.environment)
 searchPkgList = yumoter._returnNewestByNameArch([args.search])
