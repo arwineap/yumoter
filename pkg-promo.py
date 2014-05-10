@@ -38,12 +38,24 @@ yumoter.loadRepos(args.centosversion, args.environment)
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
 
-for pkg in searchPkgList:
-    print pkg
-sys.exit(0)
-print(searchPkgList)
+# searchByName doesn't return the same format as returnNewestByNameArch
+# Let's fix the printing
+searchPkgDict = {}
 
-print "Please select which pkg to promote:"
+for pkg in searchPkgList:
+    if yumoter._urlToRepo(pkg.remote_url) not in searchPkgDict:
+        searchPkgDict[yumoter._urlToRepo(pkg.remote_url)] = []
+    searchPkgDict[yumoter._urlToRepo(pkg.remote_url)].append(pkg)
+
+i = 1
+for repo in searchPkgDict:
+    print("%s:" % repo)
+    for pkg in searchPkgDict[repo]:
+        print("%d. %s" % (i, pkg))
+        i += 1
+
+'''
+print("Please select which pkg to promote:")
 for idx, pkg in enumerate(searchPkgList):
     print("%s: %s-%s-%s.%s" % (idx, pkg.name, pkg.version, pkg.release, pkg.arch))
 pkgChoice = int(raw_input(": "))
@@ -65,3 +77,4 @@ if promoteall.lower() != "y":
 yumoter.promotePkg(searchPkgList[pkgChoice])
 yumoter.promotePkgs(neededDeps[searchPkgList[pkgChoice]])
 yumoter.createRepos()
+'''

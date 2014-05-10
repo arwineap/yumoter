@@ -63,13 +63,13 @@ class yumoter:
                     masterPathList.append(entry)
         for entry in masterPathList:
             if not os.path.isdir(entry):
-                print "creating missing dir: %s" % entry
+                print("creating missing dir: %s" % entry)
                 self._mkdir_p(entry)
 
     def _runRsync(self, rsyncName, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
         sysCall = ['rsync'] + args + [rsrc, rdst]
-        print 'sysCall', sysCall
+        print('sysCall', sysCall)
         rsyncStdout = []
         rsyncStderr = []
         p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
@@ -87,7 +87,7 @@ class yumoter:
         # TODO check return status please. Stop coding like a 12 year old.
 
     def _loadRepo(self, reponame, repo):
-        print "Adding repo:", reponame, repo
+        print("Adding repo:", reponame, repo)
         # if repo is unicode and not a string, this will silently do the wrong thing
         # and all actions against the repo will fail.
         self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
@@ -109,7 +109,7 @@ class yumoter:
         for tmprepo in self.repoConfig:
             if choppedurl.startswith(self.repoConfig[tmprepo]['path']):
                 return tmprepo
-        print "ERROR: _urlToRepo could not evaluate which repo this url came from"
+        print("ERROR: _urlToRepo could not evaluate which repo this url came from")
         sys.exit(1)
 
     def _pathToUrl(self, path):
@@ -134,7 +134,7 @@ class yumoter:
         # choppedurl = epel/6/wildwest/tmux-1.6-3.el6.x86_64.rpm
         # check to see if this repo is even promoted
         if not self._repoIsPromoted(repo):
-            print "ERROR: _urlToPromoPath was called on a repo which isn't promoted."
+            print("ERROR: _urlToPromoPath was called on a repo which isn't promoted.")
             sys.exit(1)
         # determine current env
         currenv = os.path.basename(os.path.dirname(choppedurl))
@@ -146,13 +146,13 @@ class yumoter:
         # repoTuple = (repoName, envName)
         # repoTuple = ("epel-6", "wildwest")
         if len(repoTuple) != 2:
-            print "ERROR: _addChangedRepo did not receive the proper repoTuple type", repoTuple
+            print("ERROR: _addChangedRepo did not receive the proper repoTuple type", repoTuple)
         if repoTuple[0] not in self.repoConfig.keys():
-            print "ERROR: _addChangedRepo supplied a repoTuple with a non-existing repo", repoTuple
+            print("ERROR: _addChangedRepo supplied a repoTuple with a non-existing repo", repoTuple)
         if 'promotionpath' not in self.repoConfig[repoTuple[0]]:
-            print 'ERROR: _addChangedRepo supplied a repoTuple with a non-promoting repo', repoTuple
+            print('ERROR: _addChangedRepo supplied a repoTuple with a non-promoting repo', repoTuple)
         if repoTuple[1] not in self.repoConfig[repoTuple[0]]['promotionpath']:
-            print "ERROR: _addChangedRepo was supplied a promotionpath that doesn't exist", repoTuple
+            print("ERROR: _addChangedRepo was supplied a promotionpath that doesn't exist", repoTuple)
         if repoTuple not in self.changedRepos:
             self.changedRepos.append(repoTuple)
 
@@ -165,9 +165,9 @@ class yumoter:
         dstRepo = self._urlToRepo(dstUrl)
         dstEnv = self._urlToEnv(dstUrl)
         if os.path.exists(dst):
-            print "INFO: link already exists: %s" % (dst)
+            print("INFO: link already exists: %s" % (dst))
             return True
-        print "Linking %s -> %s" % (src, dst)
+        print("Linking %s -> %s" % (src, dst))
         os.link(src, dst)
         if not os.path.exists(dst):
             print "ERROR: linking failed."
@@ -187,7 +187,7 @@ class yumoter:
         # clean up the srcLink
         if self.repoConfig[srcRepo]['promotionpath'].index(srcEnv) != 0:
             # TODO: This block signifies repos that need to be queued for createrepo.
-            print "INFO: deleting unneeded link: %s" % src
+            print("INFO: deleting unneeded link: %s" % src)
             os.remove(src)
             # We removed the rpm from the source, we need to also createrepo on it.
             self._addChangedRepo((srcRepo, srcEnv))
@@ -216,7 +216,6 @@ class yumoter:
             sys.stderr.flush()
         return (syscallStdout, syscallStderr)
 
-
     def searchByName(self, pkgname):
         result = self.yb.searchGenerator(['name'], [pkgname])
         return result
@@ -226,7 +225,6 @@ class yumoter:
         # (repoName, envName)
         for repoTuple in self.changedRepos:
             self._createRepo(repoTuple)
-
 
     def promotePkg(self, pkg):
         repo = self._urlToRepo(pkg.remote_url)
@@ -241,7 +239,6 @@ class yumoter:
     def promotePkgs(self, pkgList):
         for pkg in pkgList:
             self.promotePkg(pkg)
-
 
     def loadRepos(self, osVer, env):
         # this should load all the repos for osVer in env
@@ -265,7 +262,6 @@ class yumoter:
                 self._loadRepo(repo, self.repoConfig[repo]['fullurls'][0])
             else:
                 self._loadRepo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
-
 
     def getDeps(self, pkgObj):
         if type(pkgObj) != list:
