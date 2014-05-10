@@ -42,7 +42,7 @@ searchPkgList = yumoter.searchByName(args.search)
 # Let's fix the printing
 searchPkgDict = {}
 
-for pkg in searchPkgList:
+for pkg, provides in searchPkgList:
     if yumoter._urlToRepo(pkg.remote_url) not in searchPkgDict:
         searchPkgDict[yumoter._urlToRepo(pkg.remote_url)] = []
     searchPkgDict[yumoter._urlToRepo(pkg.remote_url)].append(pkg)

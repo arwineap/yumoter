@@ -1,7 +1,14 @@
 #!/usr/bin/env python2
-import sys, os, json, errno, subprocess, yum
+import sys
+import os
+import json
+import errno
+import subprocess
+import yum
+
 
 class yumoter:
+
     def __init__(self, configFile, repobasepath):
         self.urlbasepath = "http://yumoter.gnmedia.net"
         self.repobasepath = repobasepath
@@ -87,7 +94,7 @@ class yumoter:
         # TODO check return status please. Stop coding like a 12 year old.
 
     def _loadRepo(self, reponame, repo):
-        print("Adding repo:", reponame, repo)
+        print("Adding repo: %s %s" % (reponame, repo))
         # if repo is unicode and not a string, this will silently do the wrong thing
         # and all actions against the repo will fail.
         self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
@@ -170,7 +177,7 @@ class yumoter:
         print("Linking %s -> %s" % (src, dst))
         os.link(src, dst)
         if not os.path.exists(dst):
-            print "ERROR: linking failed."
+            print("ERROR: linking failed.")
             sys.exit(1)
         # Queue the link destination for createrepo
         self._addChangedRepo((dstRepo, dstEnv))
@@ -202,7 +209,7 @@ class yumoter:
             # centos 5 repos require this flag
             syscall.append("--checksum=sha")
         syscall.append("%s/%s/%s" % (self.repobasepath, self.repoConfig[repoTuple[0]]['path'], repoTuple[1]))
-        print "Generating metadata on: %s %s" % (repoTuple[0], repoTuple[1])
+        print("Generating metadata on: %s %s" % (repoTuple[0], repoTuple[1]))
         p = subprocess.Popen(syscall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         for line in iter(p.stdout.readline, ""):
             stdoutLine = line.strip() + '\r\n'
@@ -231,10 +238,10 @@ class yumoter:
         if self._repoIsPromoted(repo):
             oldpath = self._urlToPath(pkg.remote_url)
             newpath = self._urlToPromoPath(pkg.remote_url)
-            print "promoting %s -> %s" % (oldpath, newpath)
+            print("promoting %s -> %s" % (oldpath, newpath))
             self._hardlink(oldpath, newpath)
         else:
-            print "skipping %s because it is not in a promoted repo" % pkg.name
+            print("skipping %s because it is not in a promoted repo" % pkg.name)
 
     def promotePkgs(self, pkgList):
         for pkg in pkgList:
