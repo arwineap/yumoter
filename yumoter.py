@@ -207,21 +207,14 @@ class yumoter:
         return True
 
     def _magicTranslator(self, name, version):
-        # First, let's guess what the name should be, maybe it'll be that easy.
         majorVer = self._translateToMajorVer(version)
         dotlessVer = version.replace('.', '')
         guessedName = "%s-%s" % (name, majorVer)
         if guessedName in self.repoConfig:
-            print "\t\t%s %s" % ("Found:", guessedName)
-            return
-        else:
-            print "\t\t%s %s" % ("Guessed:", guessedName)
+            return guessedName
         guessedName = "%s-%s" % (name, dotlessVer)
         if guessedName in self.repoConfig:
-            print "\t\t%s %s" % ("Found:", guessedName)
-            return
-        else:
-            print "\t\t%s %s" % ("Guessed:", guessedName)
+            return guessedName
 
 
     def _createRepo(self, repoTuple):
@@ -284,7 +277,9 @@ class yumoter:
         print "deps list:"
         for deprepo in self.repoConfig[repo]['deprepos']:
             print "\tguessing repo:", deprepo
-            foo = self._magicTranslator(deprepo, osVer)
+            print "\tdep provided: %s" % deprepo
+            print "\tdep found: %s" % self.magicTranslator(deprepo, osVer)
+            #foo = self._magicTranslator(deprepo, osVer)
         #print "guessedName:"#, self._magicTranslator()
         print '#################'
         loadrepos = []
