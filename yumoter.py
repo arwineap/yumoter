@@ -36,6 +36,9 @@ class yumoter:
     def _translateToMajorVer(self, ver):
         # I: 6.4
         # O: 6
+        # ------
+        # I: 6
+        # O: 6
         if '.' in ver:
             ver = ver.split('.')[0]
         return ver
@@ -203,6 +206,15 @@ class yumoter:
             self._addChangedRepo((srcRepo, srcEnv))
         return True
 
+    def _magicTranslator(self, name, version):
+        # First, let's guess what the name should be, maybe it'll be that easy.
+        dotlessVer = version
+        if '.' in version:
+            dotlessVer = self._translateToMajorVer(version)
+        guessedName = "%s-%s" % (name, dotlessVer)
+        print guessedName
+
+
     def _createRepo(self, repoTuple):
         # Let's create repo metadata
         syscallStdout = []
@@ -260,6 +272,7 @@ class yumoter:
         print "repo:", repo
         print "env:", env
         print "osVer:", osVer
+        print "guessedName:"#, self._magicTranslator()
         print '#################'
         loadrepos = []
         shortenv = self._translateToMajorVer(env)
