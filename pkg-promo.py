@@ -22,8 +22,8 @@ args = parser.parse_args()
 
 environments = ['wildwest', 'beta', 'live']
 
-#yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
-yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
+yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+#yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
 
 if args.subprocess_name == 'list':
     for repo in yumoter.repoConfig:
@@ -80,7 +80,7 @@ for dep in neededDeps:
     depsDict[depRepo].append(dep)
 
 
-
+'''
 resultingDeps = []
 tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
 
@@ -90,7 +90,7 @@ tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
 
 
 tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
-
+'''
 
 
 '''
