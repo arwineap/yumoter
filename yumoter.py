@@ -208,16 +208,15 @@ class yumoter:
 
     def _magicTranslator(self, name, version):
         # First, let's guess what the name should be, maybe it'll be that easy.
-        dotlessVer = version
-        if '.' in version:
-            dotlessVer = self._translateToMajorVer(version)
-        guessedName = "%s-%s" % (name, dotlessVer)
+        majorVer = self._translateToMajorVer(version)
+        dotlessVer = version.replace('.', '')
+        guessedName = "%s-%s" % (name, majorVer)
         if guessedName in self.repoConfig:
             print "\t\t%s %s" % ("Found:", guessedName)
             return
         else:
             print "\t\t%s %s" % ("Guessed:", guessedName)
-        guessedName = "%s-%s" % (name, version)
+        guessedName = "%s-%s" % (name, dotlessVer)
         if guessedName in self.repoConfig:
             print "\t\t%s %s" % ("Found:", guessedName)
             return
