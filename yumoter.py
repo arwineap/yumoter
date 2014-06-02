@@ -212,7 +212,17 @@ class yumoter:
         if '.' in version:
             dotlessVer = self._translateToMajorVer(version)
         guessedName = "%s-%s" % (name, dotlessVer)
-        print "\t\t%s" % guessedName
+        if guessedName in self.repoConfig:
+            print "\t\t%s %s" % ("Found:", guessedName)
+            return
+        else:
+            print "\t\t%s %s" % ("Guessed:", guessedName)
+        guessedName = "%s-%s" % (name, version)
+        if guessedName in self.repoConfig:
+            print "\t\t%s %s" % ("Found:", guessedName)
+            return
+        else:
+            print "\t\t%s %s" % ("Guessed:", guessedName)
 
 
     def _createRepo(self, repoTuple):
