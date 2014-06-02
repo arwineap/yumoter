@@ -37,7 +37,7 @@
     "os-65": {
         "osver": "6.5",
         "path": "os/6.5",
-        "upstream": "rsync://archive.kernel.org/centos/6.5/os/x86_64/Packages/"
+        "upstream": "rsync://mirrors.usc.edu/centos/6.5/os/x86_64/"
     },
     "puppet-5": {
         "osver": "5",

@@ -95,8 +95,8 @@ class yumoter:
 
     def _loadRepo(self, reponame, repo):
         print("Adding repo: %s %s" % (reponame, repo))
-        # if repo is unicode and not a string, this will silently do the wrong thing
-        # and all actions against the repo will fail.
+        # if repo is unicode and not a string, this will silently do the wrong
+        # thing and all actions against the repo will fail.
         self.yb.add_enable_repo(reponame, baseurls=[str(repo)], mirrorlist=None)
 
     def _returnNewestByNameArch(self, patternsList):
@@ -145,7 +145,10 @@ class yumoter:
             sys.exit(1)
         # determine current env
         currenv = os.path.basename(os.path.dirname(choppedurl))
-        newenv = self.repoConfig[repo]['promotionpath'][self.repoConfig[repo]['promotionpath'].index(currenv)+1]
+        try:
+            newenv = self.repoConfig[repo]['promotionpath'][self.repoConfig[repo]['promotionpath'].index(currenv)+1]
+        except IndexError:
+            return False
         result = self._urlToPath(url.replace("/%s/" % currenv, "/%s/" % newenv ))
         return result
 

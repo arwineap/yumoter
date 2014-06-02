@@ -1,9 +1,10 @@
 #!/usr/bin/env python2
 
-
+import yum
 import yumoter
 import argparse
 import sys
+import os
 
 
 parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.')
@@ -19,8 +20,10 @@ parser_search.add_argument('-e', '--environment', help="Specify enviornment / pr
 
 args = parser.parse_args()
 
+environments = ['wildwest', 'beta', 'live']
 
-yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+#yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
 
 if args.subprocess_name == 'list':
     for repo in yumoter.repoConfig:
@@ -38,27 +41,105 @@ yumoter.loadRepos(args.centosversion, args.environment)
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
 
+
+
 # searchByName doesn't return the same format as returnNewestByNameArch
 # Let's fix the printing
 searchPkgDict = {}
 
 for pkg in searchPkgList:
-    if yumoter._urlToRepo(pkg[0].remote_url) not in searchPkgDict:
-        searchPkgDict[yumoter._urlToRepo(pkg[0].remote_url)] = []
-    searchPkgDict[yumoter._urlToRepo(pkg[0].remote_url)].append(pkg[0])
+    # Need to filter out installed pkgs. Not sure where they are coming from.
+    if 'rpmdb' not in pkg[0].__dict__:
+        if yumoter._urlToRepo(pkg[0].remote_url) not in searchPkgDict:
+            searchPkgDict[yumoter._urlToRepo(pkg[0].remote_url)] = []
+        searchPkgDict[yumoter._urlToRepo(pkg[0].remote_url)].append(pkg[0])
 
-i = 1
+pkgIdx = []
+i = 0
 for repo in searchPkgDict:
     print("%s:" % repo)
     for pkg in searchPkgDict[repo]:
         print("%d. %s" % (i, pkg))
+        pkgIdx.append(pkg)
         i += 1
+print('Please select which pkg to promote:')
+#pkgChoice = int(raw_input(": "))
+
+#print pkgIdx[pkgChoice]
+print pkgIdx[6]
+promopkg = pkgIdx[6]
+
+print 'Getting deps for:', promopkg
+neededDeps = yumoter.getNeededDeps(promopkg)
+
+depsDict = {}
+for dep in neededDeps:
+    depRepo = yumoter._urlToRepo(dep.remote_url)
+    if depRepo not in depsDict:
+        depsDict[depRepo] = []
+    depsDict[depRepo].append(dep)
+
+
+
+resultingDeps = []
+tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
+
+
+
+    depEnv = yumoter._urlToEnv(dep.remote_url)
+
+
+tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
+
+
+
+'''
+
+for dep in neededDeps[promopkg]:
+    # Check all environments above the one you are in.
+    # if the pkg is in an above env, remove it from neededDeps.
+    # find env
+    depenv = yumoter._urlToEnv(dep.remote_url)
+    deprepo = yumoter._urlToRepo(dep.remote_url)
+    envidx = yumoter.repoConfig[deprepo]['promotionpath'].index(depenv)+1
+    for i in range(envidx, len(yumoter.repoConfig[deprepo]['promotionpath'])):
+        checkenv = yumoter.repoConfig[deprepo]['promotionpath'][i]
+        tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
+        tmpyumoter.loadRepos(args.centosversion, checkenv)
+
+#yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
+#yumoter.loadRepos(args.centosversion, args.environment)
+#searchPkgList = yumoter._returnNewestByNameArch([args.search])
+
+    print dep
+    print yumoter._urlToPromoPath(dep.remote_url)
+    print yumoter._pathToUrl(yumoter._urlToPromoPath(dep.remote_url))
+    a = yumoter._urlToPromoPath(yumoter._pathToUrl(yumoter._urlToPromoPath(dep.remote_url)))
+    print a
+    print yumoter._pathToUrl(a)
+    if not yumoter._urlToPromoPath(yumoter._pathToUrl(a)):
+        print "we're done here"
+    #print yumoter._urlToPromoPath(yumoter._pathToUrl(a))
+
+print neededDeps[promopkg]
+
+'''
+
+
+
+
+
+
+
+
+
 
 '''
 print("Please select which pkg to promote:")
 for idx, pkg in enumerate(searchPkgList):
     print("%s: %s-%s-%s.%s" % (idx, pkg.name, pkg.version, pkg.release, pkg.arch))
 pkgChoice = int(raw_input(": "))
+
 
 print("Getting deps for %s-%s-%s.%s" % (searchPkgList[pkgChoice].name, searchPkgList[pkgChoice].version, searchPkgList[pkgChoice].release, searchPkgList[pkgChoice].arch))
 neededDeps = yumoter.getNeededDeps(searchPkgList[pkgChoice])
@@ -77,4 +158,6 @@ if promoteall.lower() != "y":
 yumoter.promotePkg(searchPkgList[pkgChoice])
 yumoter.promotePkgs(neededDeps[searchPkgList[pkgChoice]])
 yumoter.createRepos()
+
 '''
+
