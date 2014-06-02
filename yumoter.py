@@ -272,7 +272,11 @@ class yumoter:
         print "repo:", repo
         print "env:", env
         print "osVer:", osVer
-        print "guessedName:"#, self._magicTranslator()
+        print "deps list:"
+        for deprepo in self.repoConfig[repo]['deprepos']:
+            print 'guessing repo:', deprepo
+            foo = self._magicTranslator()
+        #print "guessedName:"#, self._magicTranslator()
         print '#################'
         loadrepos = []
         shortenv = self._translateToMajorVer(env)
