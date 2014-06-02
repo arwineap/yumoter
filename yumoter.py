@@ -212,7 +212,7 @@ class yumoter:
         if '.' in version:
             dotlessVer = self._translateToMajorVer(version)
         guessedName = "%s-%s" % (name, dotlessVer)
-        print guessedName
+        print "\t\t%s" % guessedName
 
 
     def _createRepo(self, repoTuple):
@@ -274,7 +274,7 @@ class yumoter:
         print "osVer:", osVer
         print "deps list:"
         for deprepo in self.repoConfig[repo]['deprepos']:
-            print 'guessing repo:', deprepo
+            print "\tguessing repo:", deprepo
             foo = self._magicTranslator(deprepo, osVer)
         #print "guessedName:"#, self._magicTranslator()
         print '#################'
