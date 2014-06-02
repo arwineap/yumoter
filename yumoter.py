@@ -275,7 +275,7 @@ class yumoter:
         print "deps list:"
         for deprepo in self.repoConfig[repo]['deprepos']:
             print 'guessing repo:', deprepo
-            foo = self._magicTranslator()
+            foo = self._magicTranslator(deprepo, osVer)
         #print "guessedName:"#, self._magicTranslator()
         print '#################'
         loadrepos = []
