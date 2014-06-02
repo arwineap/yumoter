@@ -278,7 +278,7 @@ class yumoter:
         for deprepo in self.repoConfig[repo]['deprepos']:
             print "\tguessing repo:", deprepo
             print "\tdep provided: %s" % deprepo
-            print "\tdep found: %s" % self.magicTranslator(deprepo, osVer)
+            print "\tdep found: %s" % self._magicTranslator(deprepo, osVer)
             #foo = self._magicTranslator(deprepo, osVer)
         #print "guessedName:"#, self._magicTranslator()
         print '#################'
