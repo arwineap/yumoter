@@ -7,6 +7,7 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os"],
         "upstream": "rsync://mirrors.kernel.org/fedora-epel/6/x86_64/"
     },
     "ius-6": {
@@ -17,26 +18,31 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os", "epel"],
         "upstream": "rsync://mirror.rackspace.com/ius/stable/Redhat/6/x86_64/"
     },
     "os-56": {
         "osver": "5.6",
         "path": "os/5.6",
+        "deprepos": [],
         "upstream": "rsync://archive.kernel.org/centos/5.6/os/x86_64/Packages/"
     },
     "os-63": {
         "osver": "6.3",
         "path": "os/6.3",
+        "deprepos": [],
         "upstream": "rsync://archive.kernel.org/centos/6.3/os/x86_64/Packages/"
     },
     "os-64": {
         "osver": "6.4",
         "path": "os/6.4",
+        "deprepos": [],
         "upstream": "rsync://archive.kernel.org/centos/6.4/os/x86_64/Packages/"
     },
     "os-65": {
         "osver": "6.5",
         "path": "os/6.5",
+        "deprepos": [],
         "upstream": "rsync://mirrors.usc.edu/centos/6.5/os/x86_64/"
     },
     "puppet-5": {
@@ -47,6 +53,7 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os", "puppetdependencies"],
         "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/5/products/x86_64/"
     },
     "puppet-6": {
@@ -57,6 +64,7 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os", "puppetdependencies"],
         "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/"
     },
     "puppetdependencies-6": {
@@ -67,6 +75,7 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os"],
         "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/dependencies/x86_64/"
     },
     "puppetmaster-6": {
@@ -77,6 +86,7 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os", "puppetdependencies"],
         "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/"
     },
     "updates-6": {
@@ -87,6 +97,7 @@
             "beta",
             "live"
         ],
+        "deprepos": ["os"],
         "upstream": "rsync://mirrors.kernel.org/centos/6/updates/x86_64/Packages/"
     }
 }

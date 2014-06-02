@@ -17,6 +17,7 @@ parser_search = subparsers.add_parser('search', help='Search for pkgs')
 parser_search.add_argument('search', help='specify a pkg to search for')
 parser_search.add_argument('-c', '--centosversion', help="Specify centos version", default="6.4")
 parser_search.add_argument('-e', '--environment', help="Specify enviornment / promotion path", required=True)
+parser_search.add_argument('-r', '--repo', help="Repo to search in", required=True)
 
 args = parser.parse_args()
 
@@ -37,7 +38,7 @@ if args.subprocess_name == 'list':
                     print("\t\t%s" % entry)
     sys.exit()
 
-yumoter.loadRepos(args.centosversion, args.environment)
+yumoter.loadRepos(args.centosversion, args.environment, args.repo)
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
 

@@ -250,10 +250,17 @@ class yumoter:
         for pkg in pkgList:
             self.promotePkg(pkg)
 
-    def loadRepos(self, osVer, env):
+    def loadRepos(self, osVer, env, repo):
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo
         # by url.
+        print '#################'
+        print 'loadRepos called.'
+        print "You requested:"
+        print "repo:", repo
+        print "env:", env
+        print "osVer:", osVer
+        print '#################'
         loadrepos = []
         shortenv = self._translateToMajorVer(env)
         for repo in self.repoConfig:
