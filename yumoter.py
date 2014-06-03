@@ -110,6 +110,13 @@ class yumoter:
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
         result = self.yb.findDeps(pkgObj)
+        #print 'DEBUG _getDeps:', result
+        print '---- DEBUG getDeps ----'
+        for pkg in result:
+            print 'pkg:', pkg
+            for dep in result[pkg]:
+                print '  dep:', dep
+        print '---- /DEBUG getDeps ----'
         return result
 
     def _urlToPath(self, url):

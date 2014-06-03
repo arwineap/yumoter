@@ -96,13 +96,17 @@ for key in neededDeps:
         print 'Adding initial dep:', dep
         depsList.append(dep)
 
+print 'before shit started:', depsList
+
 notchanged = True
 while notchanged:
     olddepsList = depsList
     newDepsDict = depyumoter.getNeededDeps(depsList)
+    print 'newDepsDict:', newDepsDict
     for origpkg in newDepsDict:
         for dep in newDepsDict[origpkg]:
             if dep not in depsList:
+                print '---'
                 print 'from origpkg', origpkg
                 print 'Adding recursive dep:', dep
                 depsList.append(dep)
