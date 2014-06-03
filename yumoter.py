@@ -109,7 +109,9 @@ class yumoter:
     def _getDeps(self, pkgObj):
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
-        return self.yb.findDeps(pkgObj)
+        result = self.yb.findDeps(pkgObj)
+        print 'DEBUG _getDeps:', result
+        return result
 
     def _urlToPath(self, url):
         return "%s%s" % (self.repobasepath, url.replace(self.urlbasepath, ''))
@@ -304,9 +306,11 @@ class yumoter:
         depsDict = self.getDeps(pkgObj)
         resultDict = {}
         for pkg in depsDict:
+            print 'DEBUG getNeededDeps pkg:', pkg
             for dep in depsDict[pkg]:
                 # Take out deps from repos that are not promoted. These do not
                 # need to be promoted.
+                print 'DEBUG getNeededDeps dep:', dep
                 if self._repoIsPromoted(self._urlToRepo(dep.remote_url)):
                     if pkg not in resultDict:
                         resultDict[pkg] = []

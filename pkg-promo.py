@@ -96,91 +96,21 @@ for dep in neededDeps[promopkg]:
         depsDict[depRepo] = []
     depsDict[depRepo].append(dep)
 
+# Let's make passes of recursive dep resolution.
+changedFlag = True
+while changedFlag == True:
+    oldDepsDict = depsDict
+    for repo in depsDict:
+        for dep in depsDict[repo]:
+            newdeplist = depyumoter.getNeededDeps(dep)
+            print 'DEBUG newdeplist:', newdeplist
+
+
+
 print "Deps:"
 for repo in depsDict:
     print "Repo: %s" % repo
     for dep in depsDict[repo]:
         print "\t%s" % dep
 
-
-'''
-resultingDeps = []
-tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
-
-
-
-    depEnv = yumoter._urlToEnv(dep.remote_url)
-
-
-tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
-'''
-
-
-'''
-
-for dep in neededDeps[promopkg]:
-    # Check all environments above the one you are in.
-    # if the pkg is in an above env, remove it from neededDeps.
-    # find env
-    depenv = yumoter._urlToEnv(dep.remote_url)
-    deprepo = yumoter._urlToRepo(dep.remote_url)
-    envidx = yumoter.repoConfig[deprepo]['promotionpath'].index(depenv)+1
-    for i in range(envidx, len(yumoter.repoConfig[deprepo]['promotionpath'])):
-        checkenv = yumoter.repoConfig[deprepo]['promotionpath'][i]
-        tmpyumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
-        tmpyumoter.loadRepos(args.centosversion, checkenv)
-
-#yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
-#yumoter.loadRepos(args.centosversion, args.environment)
-#searchPkgList = yumoter._returnNewestByNameArch([args.search])
-
-    print dep
-    print yumoter._urlToPromoPath(dep.remote_url)
-    print yumoter._pathToUrl(yumoter._urlToPromoPath(dep.remote_url))
-    a = yumoter._urlToPromoPath(yumoter._pathToUrl(yumoter._urlToPromoPath(dep.remote_url)))
-    print a
-    print yumoter._pathToUrl(a)
-    if not yumoter._urlToPromoPath(yumoter._pathToUrl(a)):
-        print "we're done here"
-    #print yumoter._urlToPromoPath(yumoter._pathToUrl(a))
-
-print neededDeps[promopkg]
-
-'''
-
-
-
-
-
-
-
-
-
-
-'''
-print("Please select which pkg to promote:")
-for idx, pkg in enumerate(searchPkgList):
-    print("%s: %s-%s-%s.%s" % (idx, pkg.name, pkg.version, pkg.release, pkg.arch))
-pkgChoice = int(raw_input(": "))
-
-
-print("Getting deps for %s-%s-%s.%s" % (searchPkgList[pkgChoice].name, searchPkgList[pkgChoice].version, searchPkgList[pkgChoice].release, searchPkgList[pkgChoice].arch))
-neededDeps = yumoter.getNeededDeps(searchPkgList[pkgChoice])
-
-for idx, dep in enumerate(neededDeps[searchPkgList[pkgChoice]]):
-    print("%s: %s-%s-%s.%s" % (idx, dep.name, dep.version, dep.release, dep.arch))
-promoteall = raw_input("Continue? (Y/N): ")
-
-
-if promoteall.lower() == "n":
-    sys.exit(0)
-if promoteall.lower() != "y":
-    print("invalid selection.")
-    sys.exit(1)
-
-yumoter.promotePkg(searchPkgList[pkgChoice])
-yumoter.promotePkgs(neededDeps[searchPkgList[pkgChoice]])
-yumoter.createRepos()
-
-'''
 
