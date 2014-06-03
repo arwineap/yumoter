@@ -64,11 +64,12 @@ for repo in searchPkgDict:
         pkgIdx.append(pkg)
         i += 1
 print('Please select which pkg to promote:')
-#pkgChoice = int(raw_input(": "))
+pkgChoice = int(raw_input(": "))
 
-#print pkgIdx[pkgChoice]
-print pkgIdx[6]
-promopkg = pkgIdx[6]
+print pkgIdx[pkgChoice]
+promopkg = pkgIdx[pkgChoice]
+#print pkgIdx[6]
+#promopkg = pkgIdx[6]
 
 print 'Getting deps for:', promopkg
 neededDeps = yumoter.getNeededDeps(promopkg)
