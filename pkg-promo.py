@@ -69,12 +69,14 @@ for repo in searchPkgDict:
         pkgIdx.append(pkg)
         i += 1
 print('Please select which pkg to promote:')
-pkgChoice = int(raw_input(": "))
 
-print pkgIdx[pkgChoice]
-promopkg = pkgIdx[pkgChoice]
-#print pkgIdx[6]
-#promopkg = pkgIdx[6]
+
+#pkgChoice = int(raw_input(": "))
+
+#print pkgIdx[pkgChoice]
+#promopkg = pkgIdx[pkgChoice]
+print pkgIdx[166]
+promopkg = pkgIdx[166]
 
 
 currEnvIdx = environments.index(args.environment)
