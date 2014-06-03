@@ -90,6 +90,25 @@ print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
 print neededDeps
+depsList = []
+for key in depsList:
+    for dep in depsList[key]:
+        depsList.append(dep)
+
+print 'depsList:', depsList
+
+notchanged = True
+while notchanged:
+    olddepsList = depsList
+    newDepsDict = depyumoter.getNeededDeps(depsList)
+    for origpkg in newDepsDict:
+        for dep in newDepsDict[origpkg]:
+            if dep not in depsList:
+                depsList.append(dep)
+    if depsList == olddepsList:
+        notchanged = False
+
+print 'depsList:', depsList
 
 sys.exit(1)
 
