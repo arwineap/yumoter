@@ -89,6 +89,8 @@ depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
+print neededDeps
+
 sys.exit(1)
 
 
