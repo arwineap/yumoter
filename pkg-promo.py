@@ -90,9 +90,9 @@ print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
 print 'initial deps'
-for i in fullDepResult:
+for i in neededDeps:
     print i
-    print fullDepResult[i]
+    print neededDeps[i]
 
 # Put the chosen pkg in a list with it's deps
 depsList = [promopkg]
