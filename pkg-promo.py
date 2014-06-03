@@ -97,13 +97,22 @@ for dep in neededDeps[promopkg]:
     depsDict[depRepo].append(dep)
 
 # Let's make passes of recursive dep resolution.
-changedFlag = True
-while changedFlag == True:
+changedFlag = False
+while changedFlag == False:
     oldDepsDict = depsDict
     for repo in depsDict:
         for dep in depsDict[repo]:
             newdeplist = depyumoter.getNeededDeps(dep)
             print 'DEBUG newdeplist:', newdeplist
+            for pkg in newdeplist:
+                print 'DEBUG recursive dep', pkg
+                tmprepo = yumoter._urlToRepo(pkg.remote_url)
+                if tmprepo not in depsDict:
+                    depsDict[tmprepo] = []
+                if pkg not in depsDict[tmprepo]:
+                    depsDict[tmprepo].append(pkg)
+    if depsDict == oldDepsDict:
+        changedFlag = True
 
 
 
