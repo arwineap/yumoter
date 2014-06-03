@@ -50,8 +50,6 @@ else:
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
 
-
-
 # searchByName doesn't return the same format as returnNewestByNameArch
 # Let's fix the printing
 searchPkgDict = {}
@@ -78,6 +76,9 @@ print pkgIdx[pkgChoice]
 promopkg = pkgIdx[pkgChoice]
 #print pkgIdx[6]
 #promopkg = pkgIdx[6]
+
+# load dep repos to start search for deps
+yumoter.loadRepos(args.centosversion, args.environment, args.repo)
 
 print 'Getting deps for:', promopkg
 neededDeps = yumoter.getNeededDeps(promopkg)
