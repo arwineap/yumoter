@@ -272,12 +272,15 @@ class yumoter:
         for deprepo in self.repoConfig[repo]['deprepos']:
             loadrepos.append(self._magicTranslator(deprepo, osVer))
         for repo in loadrepos:
-            if len(self.repoConfig[repo]['fullurls']) == 1:
-                # This repo only has one env. Repo is not promoted.
-                # Load the only URL you can
-                self._loadRepo(repo, self.repoConfig[repo]['fullurls'][0])
-            else:
-                self._loadRepo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+            try:
+                if len(self.repoConfig[repo]['fullurls']) == 1:
+                    # This repo only has one env. Repo is not promoted.
+                    # Load the only URL you can
+                    self._loadRepo(repo, self.repoConfig[repo]['fullurls'][0])
+                else:
+                    self._loadRepo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+            except yum.Errors.DuplicateRepoError:
+                print "Already added:", repo
 
     def getDeps(self, pkgObj):
         if type(pkgObj) != list:
