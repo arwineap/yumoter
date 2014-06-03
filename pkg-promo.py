@@ -81,7 +81,7 @@ currEnvIdx = environments.index(args.environment)
 
 # setup depyumoter
 depyumoter = depyumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
-depyumoter.loadRepos(args.centosversion, environments[currEnvIdx+1], args.repo)
+depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 
 # load dep repos to start search for deps
 #yumoter.loadRepos(args.centosversion, args.environment, args.repo)
