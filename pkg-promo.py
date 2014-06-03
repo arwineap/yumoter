@@ -6,6 +6,8 @@ import argparse
 import sys
 import os
 
+import yumoter as depyumoter
+
 
 parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.')
 
@@ -78,7 +80,7 @@ promopkg = pkgIdx[pkgChoice]
 currEnvIdx = environments.index(args.environment)
 
 # setup depyumoter
-depyumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+depyumoter = depyumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 depyumoter.loadRepos(args.centosversion, environments[currEnvIdx+1], args.repo)
 
 # load dep repos to start search for deps
