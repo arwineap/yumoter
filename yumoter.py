@@ -110,6 +110,7 @@ class yumoter:
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
         result = self.yb.findDeps(pkgObj)
+        '''
         #print 'DEBUG _getDeps:', result
         print '---- DEBUG getDeps ----'
         for pkg in result:
@@ -117,6 +118,7 @@ class yumoter:
             for dep in result[pkg]:
                 print '  dep:', dep
         print '---- /DEBUG getDeps ----'
+        '''
         return result
 
     def _urlToPath(self, url):
@@ -294,9 +296,11 @@ class yumoter:
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
         depsDict = self._getDeps(pkgObj)
+        #print 'DEBUG getDeps:', depsDict
         resultDict = {}
         for origPkg in depsDict:
             for dep in depsDict[origPkg]:
+                #print 'DEBUG getDeps:', depsDict[origPkg][dep]
                 suggestedDep = self.yb.bestPackagesFromList(depsDict[origPkg][dep])
                 if origPkg not in resultDict:
                     resultDict[origPkg] = []

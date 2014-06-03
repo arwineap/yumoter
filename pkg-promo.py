@@ -85,23 +85,58 @@ currEnvIdx = environments.index(args.environment)
 depyumoter = depyumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 
-# load dep repos to start search for deps
-#yumoter.loadRepos(args.centosversion, args.environment, args.repo)
-
+# get initial deps for our chosen pkg
 print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
-print 'neededDeps:', neededDeps
+print 'initial deps'
+for i in fullDepResult:
+    print i
+    print fullDepResult[i]
 
+# Put the chosen pkg in a list with it's deps
 depsList = [promopkg]
 for dep in neededDeps[promopkg]:
     depsList.append(dep)
 
-print 'depsList:', depsList
+# Get full list of dependencies
+fullDepResult = depyumoter.getNeededDeps(depsList)
+print 'fullDepResult:', fullDepResult
 
-foo = depyumoter.getNeededDeps(depsList)
-print 'foo:', foo
 
+# check for multiple instances of deps
+fooDict = {}
+for i in fullDepResult:
+    print i
+    print fullDepResult[i]
+
+
+
+
+'''
+# Start parsing for printing
+# first let's put it in our own dict format
+resultDict = {}
+for pkg in fullDepResult:
+    for dep in fullDepResult[pkg]:
+        deprepo = depyumoter._urlToRepo(dep.remote_url)
+        if deprepo not in resultDict:
+            resultDict[deprepo] = []
+        resultDict[deprepo].append(dep)
+
+
+
+
+
+
+
+# try pretty printing
+print "Deps:"
+for repo in resultDict:
+    print "Repo: %s" % repo
+    for dep in resultDict[repo]:
+        print "\t%s" % dep
+'''
 
 
 '''
