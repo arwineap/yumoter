@@ -94,7 +94,8 @@ neededDeps = depyumoter.getNeededDeps(promopkg)
 print 'neededDeps:', neededDeps
 
 depsList = [promopkg]
-depsList.append(neededDeps[promopkg])
+for dep in neededDeps[promopkg]:
+    depsList.append(dep)
 
 print 'depsList:', depsList
 
