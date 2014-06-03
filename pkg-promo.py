@@ -45,7 +45,7 @@ if args.subprocess_name == 'list':
 if len(yumoter.repoConfig[args.repo]['fullurls']) == 1:
     yumoter._loadRepo(args.repo, yumoter.repoConfig[args.repo]['fullurls'][0])
 else:
-    yumoter._loadRepo(args.repo, yumoter.repoConfig[args.repo]['fullurls'][yumoter.repoConfig[args.repo]['promotionpath'].index(env)])
+    yumoter._loadRepo(args.repo, yumoter.repoConfig[args.repo]['fullurls'][yumoter.repoConfig[args.repo]['promotionpath'].index(args.environment)])
 
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
