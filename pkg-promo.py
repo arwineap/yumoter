@@ -37,9 +37,6 @@ if args.subprocess_name == 'list':
                 for entry in yumoter.repoConfig[repo][key]:
                     print("\t\t%s" % entry)
     sys.exit()
-#_loadRepo(self, reponame, repo):
-#yumoter.loadRepos(args.centosversion, args.environment, args.repo)
-#if len(self.repoConfig[repo]['fullurls']) == 1:
 
 # Load initial repo to do search
 if len(yumoter.repoConfig[args.repo]['fullurls']) == 1:
@@ -77,15 +74,22 @@ promopkg = pkgIdx[pkgChoice]
 #print pkgIdx[6]
 #promopkg = pkgIdx[6]
 
+
+currEnvIdx = environments.index(args.environment)
+
+# setup depyumoter
+depyumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+depyumoter.loadRepos(args.centosversion, environments[currEnvIdx+1], args.repo)
+
 # load dep repos to start search for deps
-yumoter.loadRepos(args.centosversion, args.environment, args.repo)
+#yumoter.loadRepos(args.centosversion, args.environment, args.repo)
 
 print 'Getting deps for:', promopkg
-neededDeps = yumoter.getNeededDeps(promopkg)
+neededDeps = depyumoter.getNeededDeps(promopkg)
 
 depsDict = {}
 for dep in neededDeps:
-    depRepo = yumoter._urlToRepo(dep.remote_url)
+    depRepo = depyumoter._urlToRepo(dep.remote_url)
     if depRepo not in depsDict:
         depsDict[depRepo] = []
     depsDict[depRepo].append(dep)
