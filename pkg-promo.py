@@ -75,8 +75,8 @@ print('Please select which pkg to promote:')
 
 #print pkgIdx[pkgChoice]
 #promopkg = pkgIdx[pkgChoice]
-print pkgIdx[166]
-promopkg = pkgIdx[166]
+print pkgIdx[160]
+promopkg = pkgIdx[160]
 
 
 currEnvIdx = environments.index(args.environment)
@@ -91,12 +91,24 @@ depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
-print neededDeps
+print 'neededDeps:', neededDeps
+
+depsList = [promopkg]
+depsList.append(neededDeps[promopkg])
+
+print 'depsList:', depsList
+
+
+
+'''
 depsList = []
+
+
 for key in neededDeps:
     for dep in neededDeps[key]:
         print 'Adding initial dep:', dep
         depsList.append(dep)
+
 
 print 'before shit started:', depsList
 
@@ -128,5 +140,5 @@ for repo in depsDict:
     print "Repo: %s" % repo
     for dep in depsDict[repo]:
         print "\t%s" % dep
-
+'''
 
