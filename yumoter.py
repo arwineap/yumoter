@@ -268,31 +268,9 @@ class yumoter:
         # this should load all the repos for osVer in env
         # Should use an internal method to load one repo
         # by url.
-        print '#################'
-        loadSmartRepos = [repo]
-        print 'loadRepos called.'
-        print "You requested:"
-        print "repo:", repo
-        print "env:", env
-        print "osVer:", osVer
-        print "deps list:"
+        loadrepos = [repo]
         for deprepo in self.repoConfig[repo]['deprepos']:
-            print "\tguessing repo:", deprepo
-            print "\tdep found: %s" % self._magicTranslator(deprepo, osVer)
-            loadSmartRepos.append(self._magicTranslator(deprepo, osVer))
-        print 'Repos to smartload:', loadSmartRepos
-        print '#################'
-        loadrepos = []
-        shortenv = self._translateToMajorVer(env)
-        for repo in self.repoConfig:
-            if '.' in self.repoConfig[repo]['osver']:
-                # This is a repo sensative to minor versions
-                if osVer == self.repoConfig[repo]['osver']:
-                    loadrepos.append(repo)
-            else:
-                # This repo cares only about major versions
-                if self._translateToMajorVer(osVer) == self.repoConfig[repo]['osver']:
-                    loadrepos.append(repo)
+            loadrepos.append(self._magicTranslator(deprepo, osVer))
         for repo in loadrepos:
             if len(self.repoConfig[repo]['fullurls']) == 1:
                 # This repo only has one env. Repo is not promoted.
