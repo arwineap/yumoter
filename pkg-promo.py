@@ -99,6 +99,9 @@ for dep in neededDeps[promopkg]:
 
 print 'depsList:', depsList
 
+foo = depyumoter.getNeededDeps(depsList)
+print 'foo:', foo
+
 
 
 '''
