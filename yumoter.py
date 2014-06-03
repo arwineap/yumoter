@@ -269,6 +269,7 @@ class yumoter:
         # Should use an internal method to load one repo
         # by url.
         print '#################'
+        loadSmartRepos = [repo]
         print 'loadRepos called.'
         print "You requested:"
         print "repo:", repo
@@ -278,8 +279,8 @@ class yumoter:
         for deprepo in self.repoConfig[repo]['deprepos']:
             print "\tguessing repo:", deprepo
             print "\tdep found: %s" % self._magicTranslator(deprepo, osVer)
-            #foo = self._magicTranslator(deprepo, osVer)
-        #print "guessedName:"#, self._magicTranslator()
+            loadSmartRepos.append(self._magicTranslator(deprepo, osVer))
+        print 'Repos to smartload:', loadSmartRepos
         print '#################'
         loadrepos = []
         shortenv = self._translateToMajorVer(env)
