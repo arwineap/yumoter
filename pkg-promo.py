@@ -91,11 +91,10 @@ neededDeps = depyumoter.getNeededDeps(promopkg)
 
 print neededDeps
 depsList = []
-for key in depsList:
-    for dep in depsList[key]:
+for key in neededDeps:
+    for dep in neededDeps[key]:
+        print 'Adding initial dep:', dep
         depsList.append(dep)
-
-print 'depsList:', depsList
 
 notchanged = True
 while notchanged:
@@ -104,21 +103,19 @@ while notchanged:
     for origpkg in newDepsDict:
         for dep in newDepsDict[origpkg]:
             if dep not in depsList:
+                print 'from origpkg', origpkg
+                print 'Adding recursive dep:', dep
                 depsList.append(dep)
     if depsList == olddepsList:
         notchanged = False
 
-print 'depsList:', depsList
-
-sys.exit(1)
-
-
 depsDict = {}
-for dep in neededDeps[promopkg]:
+for dep in depsList:
     depRepo = depyumoter._urlToRepo(dep.remote_url)
     if depRepo not in depsDict:
         depsDict[depRepo] = []
     depsDict[depRepo].append(dep)
+
 
 print "Deps:"
 for repo in depsDict:
