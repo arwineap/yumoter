@@ -90,11 +90,13 @@ print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
 depsDict = {}
-for dep in neededDeps:
+for dep in neededDeps[promopkg]:
     depRepo = depyumoter._urlToRepo(dep.remote_url)
     if depRepo not in depsDict:
         depsDict[depRepo] = []
     depsDict[depRepo].append(dep)
+
+print depsDict
 
 
 '''
