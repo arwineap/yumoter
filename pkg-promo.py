@@ -98,6 +98,13 @@ for dep in neededDeps[promopkg]:
 
 print depsDict
 
+print "Deps:"
+for repo in depsDict:
+    print "Repo: %s" % repo
+    for dep in depsDict[repo]:
+        print "\t%s" % dep
+
+
 
 '''
 resultingDeps = []
