@@ -37,8 +37,16 @@ if args.subprocess_name == 'list':
                 for entry in yumoter.repoConfig[repo][key]:
                     print("\t\t%s" % entry)
     sys.exit()
+#_loadRepo(self, reponame, repo):
+#yumoter.loadRepos(args.centosversion, args.environment, args.repo)
+#if len(self.repoConfig[repo]['fullurls']) == 1:
 
-yumoter.loadRepos(args.centosversion, args.environment, args.repo)
+# Load initial repo to do search
+if len(yumoter.repoConfig[args.repo]['fullurls']) == 1:
+    yumoter._loadRepo(args.repo, yumoter.repoConfig[args.repo]['fullurls'][0])
+else:
+    yumoter._loadRepo(args.repo, yumoter.repoConfig[args.repo]['fullurls'][yumoter.repoConfig[args.repo]['promotionpath'].index(env)])
+
 #searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
 
