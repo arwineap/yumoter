@@ -89,32 +89,15 @@ depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
+sys.exit(1)
+
+
 depsDict = {}
 for dep in neededDeps[promopkg]:
     depRepo = depyumoter._urlToRepo(dep.remote_url)
     if depRepo not in depsDict:
         depsDict[depRepo] = []
     depsDict[depRepo].append(dep)
-
-# Let's make passes of recursive dep resolution.
-changedFlag = False
-while changedFlag == False:
-    oldDepsDict = depsDict
-    for repo in depsDict:
-        for dep in depsDict[repo]:
-            newdeplist = depyumoter.getNeededDeps(dep)
-            print 'DEBUG newdeplist:', newdeplist
-            for pkg in newdeplist:
-                print 'DEBUG recursive dep', pkg
-                tmprepo = yumoter._urlToRepo(pkg.remote_url)
-                if tmprepo not in depsDict:
-                    depsDict[tmprepo] = []
-                if pkg not in depsDict[tmprepo]:
-                    depsDict[tmprepo].append(pkg)
-    if depsDict == oldDepsDict:
-        changedFlag = True
-
-
 
 print "Deps:"
 for repo in depsDict:
