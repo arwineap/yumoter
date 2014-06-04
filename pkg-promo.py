@@ -65,11 +65,8 @@ if len(yumoter.repoConfig[args.repo]['fullurls']) == 1:
 else:
     yumoter._loadRepo(args.repo, yumoter.repoConfig[args.repo]['fullurls'][yumoter.repoConfig[args.repo]['promotionpath'].index(args.environment)])
 
-#searchPkgList = yumoter._returnNewestByNameArch([args.search])
 searchPkgList = yumoter.searchByName(args.search)
 
-# searchByName doesn't return the same format as returnNewestByNameArch
-# Let's fix the printing
 searchPkgDict = {}
 
 for pkg in searchPkgList:
