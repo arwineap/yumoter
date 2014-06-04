@@ -108,11 +108,6 @@ depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 print 'Getting deps for:', promopkg
 neededDeps = depyumoter.getNeededDeps(promopkg)
 
-print 'initial deps'
-for i in neededDeps:
-    print i
-    print neededDeps[i]
-
 # Put the chosen pkg in a list with it's deps
 depsList = [promopkg]
 for dep in neededDeps[promopkg]:
@@ -138,7 +133,15 @@ promoList = [promopkg]
 for key in commonPkgDict:
     choicepkg = depyumoter.yb.bestPackagesFromList(commonPkgDict[key])
     for entry in choicepkg:
-        promoList.append(entry)
+        if depyumoter._repoIsPromoted(depyumoter._urlToRepo(entry.remote_url)):
+            promoList.append(entry)
+        else:
+            promoList.append(entry)
+
+print "#### Promotion List ####"
+for entry in promoList:
+    print entry
+
 
 
 
