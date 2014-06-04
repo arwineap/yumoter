@@ -9,6 +9,25 @@ import os
 import yumoter as depyumoter
 
 
+def commonInLists(listOfLists):
+    # Input: List of lists
+    # Output: Single list of common elements
+    # Must take unknown number of lists
+    if len(listOfLists) == 0:
+        raise Exception('No.')
+    elif len(listOfLists) == 1:
+        return listOfLists[0]
+    elif len(listOfLists) == 2:
+        return list(set(listOfLists[0]).intersection(listOfLists[1]))
+    elif len(listOfLists) > 2:
+        result = set(listOfLists[0]).intersection(listOfLists[1])
+        for i in range(2, len(listOfLists)):
+            result = result.intersection(listOfLists[i])
+        return list(result)
+    else:
+        raise Exception('How did I get here?')
+
+
 parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.')
 
 subparsers = parser.add_subparsers(help='Use search to promote something, and list to get information about the repos', dest='subprocess_name')
@@ -102,23 +121,37 @@ for dep in neededDeps[promopkg]:
 
 depNameDict = {}
 # Get full list of dependencies
-fullDepResult = depyumoter.getNeededDeps(depsList)
+fullDepResult = depyumoter._getDeps(depsList)
 print 'fullDepResult:', fullDepResult
 
 commonPkgDict = {}
 print 'HERE WE GO'
 print '----'
 for pkg in fullDepResult:
-    print fullDepResult[pkg]
+    for dep in fullDepResult[pkg]:
+        if dep[0] not in commonPkgDict:
+            commonPkgDict[dep[0]] = []
+        commonPkgDict[dep[0]].append(fullDepResult[pkg][dep])
+
+for key in commonPkgDict:
+    commonPkgDict[key] = commonInLists(commonPkgDict[key])
+
+for key in commonPkgDict:
+    choicepkg = depyumoter.yb.bestPackagesFromList(commonPkgDict[key])
+    print 'options:', commonPkgDict[key]
+    print 'choice:', choicepkg
+    print 'len(choice):', len(choicepkg)
 print '----'
 
+
+'''
 # check for multiple instances of deps
 fooDict = {}
 for i in fullDepResult:
     print i
     print fullDepResult[i]
 
-
+'''
 
 
 '''
