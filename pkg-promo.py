@@ -122,11 +122,8 @@ for dep in neededDeps[promopkg]:
 depNameDict = {}
 # Get full list of dependencies
 fullDepResult = depyumoter._getDeps(depsList)
-print 'fullDepResult:', fullDepResult
 
 commonPkgDict = {}
-print 'HERE WE GO'
-print '----'
 for pkg in fullDepResult:
     for dep in fullDepResult[pkg]:
         if dep[0] not in commonPkgDict:
@@ -136,12 +133,13 @@ for pkg in fullDepResult:
 for key in commonPkgDict:
     commonPkgDict[key] = commonInLists(commonPkgDict[key])
 
+promoList = [promopkg]
+
 for key in commonPkgDict:
     choicepkg = depyumoter.yb.bestPackagesFromList(commonPkgDict[key])
-    print 'options:', commonPkgDict[key]
-    print 'choice:', choicepkg
-    print 'len(choice):', len(choicepkg)
-print '----'
+    for entry in choicepkg:
+        promoList.append(entry)
+
 
 
 '''
