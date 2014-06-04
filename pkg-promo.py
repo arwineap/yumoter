@@ -135,12 +135,11 @@ for key in commonPkgDict:
     for entry in choicepkg:
         if depyumoter._repoIsPromoted(depyumoter._urlToRepo(entry.remote_url)):
             promoList.append(entry)
-        else:
-            promoList.append(entry)
 
-print "#### Promotion List ####"
-for entry in promoList:
-    print entry
+print ""
+print ""
+for idx, entry in enumerate(promoList):
+    print "%s. %s" % (idx, entry)
 
 
 
