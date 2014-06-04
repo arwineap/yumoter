@@ -147,9 +147,7 @@ if goVar.lower() == 'n':
     sys.exit(0)
 elif goVar.lower() == 'y':
     for pkg in promoList:
-        print "promoting:", pkg, '...',
         depyumoter.promotePkg(pkg)
-        print "done"
 else:
     print 'wut.'
 
