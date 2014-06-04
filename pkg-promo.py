@@ -99,10 +99,18 @@ depsList = [promopkg]
 for dep in neededDeps[promopkg]:
     depsList.append(dep)
 
+
+depNameDict = {}
 # Get full list of dependencies
 fullDepResult = depyumoter.getNeededDeps(depsList)
 print 'fullDepResult:', fullDepResult
 
+commonPkgDict = {}
+print 'HERE WE GO'
+print '----'
+for pkg in fullDepResult:
+    print fullDepResult[pkg]:
+print '----'
 
 # check for multiple instances of deps
 fooDict = {}
