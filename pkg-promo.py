@@ -146,8 +146,12 @@ goVar = raw_input("Go? (y|n): ")
 if goVar.lower() == 'n':
     sys.exit(0)
 elif goVar.lower() == 'y':
-    print 'lets go'
     for pkg in promoList:
-        print "promoting:", pkg
+        print "promoting:", pkg, '...',
+        depyumoter.promotePkg(pkg)
+        print "done"
 else:
     print 'wut.'
+
+print "creating repos"
+depyumoter.createRepos()
