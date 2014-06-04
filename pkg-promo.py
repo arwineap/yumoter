@@ -137,10 +137,20 @@ for key in commonPkgDict:
             promoList.append(entry)
 
 print ""
-print ""
+print "Promotion list:"
 for idx, entry in enumerate(promoList):
     print "%s. %s" % (idx, entry)
 
+goVar = raw_input("Go? (y|n): ")
+
+if goVar.lower() == 'n':
+    sys.exit(0)
+elif goVar.lower() == 'y':
+    print 'lets go'
+    for pkg in promoList:
+        print "promoting:", pkg
+else:
+    print 'wut.'
 
 
 
