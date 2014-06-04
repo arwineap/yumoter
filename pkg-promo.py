@@ -109,7 +109,7 @@ commonPkgDict = {}
 print 'HERE WE GO'
 print '----'
 for pkg in fullDepResult:
-    print fullDepResult[pkg]:
+    print fullDepResult[pkg]
 print '----'
 
 # check for multiple instances of deps
