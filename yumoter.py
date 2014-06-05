@@ -254,8 +254,9 @@ class yumoter:
         result = self.yb.searchGenerator(['name'], [pkgname])
         return result
 
-    def searchExact(self, pkgName, pkgVersion, pkgRelease, pkgArch):
-        result = self.yb.searchGenerator(['name', 'version', 'release', 'arch'], [pkgName, pkgVersion, pkgRelease, pkgArch])
+    def searchPkgTuple(self, pkgTuple):
+        # pkgSack.searchPkgTuple(
+        result = self.yb.pkgSack.searchPkgTuple(pkgTuple)
         return result
 
     def createRepos(self):
