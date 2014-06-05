@@ -254,6 +254,10 @@ class yumoter:
         result = self.yb.searchGenerator(['name'], [pkgname])
         return result
 
+    def searchExact(self, pkgName, pkgVersion, pkgRelease, pkgArch):
+        result = self.yb.searchGenerator(['name', 'version', 'release', 'arch'], [pkgName, pkgVersion, pkgRelease, pkgArch])
+        return result
+
     def createRepos(self):
         # This method should run a createrepo on each of the entries in: self.changedRepos
         # (repoName, envName)
