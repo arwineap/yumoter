@@ -7,7 +7,6 @@ import rpm
 import platform
 from pprint import pprint
 
-import yum as yum2
 
 # ignore list
 # ['facter', 'puppet', 'puppet-server', 'ruby-augeas', 'ruby-shadow']
@@ -43,78 +42,70 @@ yb = yum.YumBase()
 
 yb.setCacheDir()
 
-
-sysyb = yum2.YumBase()
-sysyb.setCacheDir()
-
-
-pkgs = yb.rpmdb.returnPackages()
-
+# Figure out repos to load
 for repo in normalrepos:
     loadQueue.append(repo + majorver)
 for repo in otherrepos:
     loadQueue.append(repo + dotlessver)
 
+# Load repos
 for repo in loadQueue:
     if repo.startswith('os-'):
-        yumoter._loadRepo(repo, yumoter.repoConfig[repo]['fullurls'][0])
+        yumoter._loadRepo(repo+"yumoter", yumoter.repoConfig[repo]['fullurls'][0])
     else:
-        yumoter._loadRepo(repo, yumoter.repoConfig[repo]['fullurls'][yumoterEnvs.index(currenv)])
+        yumoter._loadRepo(repo+"yumoter", yumoter.repoConfig[repo]['fullurls'][yumoterEnvs.index(currenv)])
+
 
 missingshit = []
+promoqueue = []
+
+# Iterate through all installed pkgs, search through yumoter for
+# matching pkgs.
+pkgs = yb.rpmdb.returnPackages()
 for pkg in pkgs:
     # def searchExact(self, pkgName, pkgVersion, pkgRelease, pkgArch):
-    print 'searching for:', pkg
+    #print 'searching for:', pkg
     a = yumoter.searchPkgTuple(pkg.pkgtup)
     if len(a) == 0:
         missingshit.append(pkg)
-    for result in a:
-        print '  result:', result, result.remote_url
-    '''
-    print pkg
-    print pkg.name
-    print pkg.version
-    print pkg.release
-    print pkg.arch'''
-
-print 'MISSING SHIT'
-print missingshit
-pprint(missingshit[0].__dict__)
-pprint(missingshit[0].repo.__dict__)
-
-sysyb.getReposFromConfig()
-
-sysmissingshit = []
-needpromolist = []
-
-for pkg in missingshit:
-    print 'searching missingshit:', pkg
-    # yb.pkgSack.searchPkgTuple(pkgTuple)
-    a = sysyb.pkgSack.searchPkgTuple(pkg.pkgtup)
-    print 'a', a
-    if len(a) == 0:
-        sysmissingshit.append(pkg)
-    for result in a:
-        print 'sysresult:', result, result.remote_url
-        if '/updates/' not in result.remote_url:
-            if 'yum.gnmedia.net/live/puppet/' not in result.remote_url:
-                needpromolist.append(result)
-
-# If this has shit in it, check `yum list extras`
-print 'unexpected extras:', sysmissingshit
-
-promoqueue = []
-
-print 'These pkgs are missing from new repos, and are in our current repos:'
-for pkg in needpromolist:
-    #print pkg, pkg.remote_url, pkg.pkgtup
-    result = yumoter.searchPkgTuple(pkg.pkgtup)
-    #print result
-    if len(result) == 0:
-        print 'NO MATCH FOUND:', pkg, pkg.remote_url
-    elif len(result) == 1:
-        print 'Match found, adding to queuing to promo'
-        promoqueue.append(result[0])
+    elif len(a) == 1:
+        #print '  perfect match:', a[0], a[0].remote_url
+        promoqueue.append(a[0])
     else:
-        print 'MULTIPLE MATCHES WUT.'
-        print result
+        print '  muliple matches:'
+        for idx, entry in enumerate(a):
+            print "    %s. %s" % (idx, entry)
+        print 'this was really unexpected, stopping.'
+        sys.exit(1)
+
+# missingshit are rpmdb pkgobjects from installed pkgs that are not in yumoter.
+# promoqueue is a list of yumoter pkgs we matched from locally installed pkgs
+
+
+print "#### MISSINGSHIT ####"
+for entry in missingshit:
+    # facter is handled by puppet repos which are not dealt with here. We will set them up by hand
+    if entry.name != 'facter':
+        # Puppet repos are not dealt with here.
+        if entry.name != 'puppet':
+            # c6.5 has newer git than our custom one (not sure where it came from)
+            if entry.name != 'git':
+                # c6.5 has newer git than our custom one (not sure where it came from)
+                if entry.name != 'perl-Git':
+                    print entry
+
+
+
+
+# Let's clean the promoqueue, it doesn't need pkgs from os repos
+removequeue = []
+for entry in promoqueue:
+    if yumoter._urlToRepo(entry.remote_url).startswith('os-'):
+        removequeue.append(entry)
+for entry in removequeue:
+    promoqueue.remove(entry)
+
+print "#### PROMOQUEUE ####"
+for entry in promoqueue:
+    print entry
+
