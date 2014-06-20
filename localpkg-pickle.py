@@ -42,6 +42,7 @@ localpkgs = yb.rpmdb.returnPackages()
 yb.add_enable_repo("epel-%s" % majorver, baseurls=[str("http://yumoter.gnmedia.net/epel/%s/wildwest" % majorver)], mirrorlist=None)
 yb.add_enable_repo("os-%s" % dotlessver, baseurls=[str("http://yumoter.gnmedia.net/os/%s" % fullver)], mirrorlist=None)
 yb.add_enable_repo("updates-%s" % majorver, baseurls=[str("http://yumoter.gnmedia.net/updates/%s/wildwest" % majorver)], mirrorlist=None)
+yb.add_enable_repo("ius-%s" % majorver, baseurls=[str("http://yumoter.gnmedia.net/ius/%s/wildwest" % majorver)], mirrorlist=None)
 
 missingpkgs = []
 
