@@ -89,6 +89,16 @@
         "deprepos": ["os", "puppetdependencies"],
         "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/"
     },
+    "gnrepo-6": {
+        "osver": "6",
+        "path": "gnrepo/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os", "epel"],
+    },
     "updates-6": {
         "osver": "6",
         "path": "updates/6",
