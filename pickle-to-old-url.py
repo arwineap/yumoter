@@ -30,6 +30,7 @@ updatesurl = "http://yum.gnmedia.net/wildwest/centos/%s/updates/" % fullver
 iusurl = "http://yum.gnmedia.net/wildwest/ius/%s/" % majorver
 gnurl = "http://yum.gnmedia.net/live/gnrepo/%s/" % majorver
 
+
 loadrepos = []
 loadrepos.append(("epel-repo", epelurl))
 loadrepos.append(("os-repo", osurl))
@@ -37,15 +38,11 @@ loadrepos.append(("updates-repo", updatesurl))
 loadrepos.append(("ius-repo", iusurl))
 loadrepos.append(("gn-repo", gnurl))
 
+
+
 for repo in loadrepos:
 	yb.add_enable_repo(repo[0], baseurls=[str(repo[1])], mirrorlist=None)
 
-
-'''
-filen = "/home/aarwine/tmp/pickle/%s/%s" % (fullver, socket.getfqdn())
-foo = open(filen, 'w')
-pickle.dump(missingpkgs, foo)
-'''
 
 filen = "./final-list"
 foo = open(filen, 'r')
@@ -54,6 +51,10 @@ missingpkgs = pickle.load(foo)
 for pkgtup in missingpkgs:
 	result = yb.pkgSack.searchPkgTuple(pkgtup)
 	if len(result) > 0:
-		print 'Found:', result
+		if len(result) == 1:
+			print 'Found:', result
+			print "URL: %s" % result[0].remote_url
+		else:
+			print 'Found multiple:', result
 	else:
 		print 'Still missing', pkgtup

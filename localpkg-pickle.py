@@ -23,6 +23,9 @@ if linuxdist[0] != 'CentOS':
     print 'no.'
     sys.exit(1)
 
+blacklist = ["MySQL-client-advanced", "MySQL-devel-advanced", "MySQL-embedded-advanced", "MySQL-server-advanced", "MySQL-shared-advanced", "MySQL-shared-compat-advanced", "MySQL-test-advanced"]
+
+
 
 fullver = linuxdist[1]
 majorver = fullver.split('.')[0]
@@ -45,6 +48,10 @@ yb.add_enable_repo("updates-%s" % majorver, baseurls=[str("http://yumoter.gnmedi
 yb.add_enable_repo("ius-%s" % majorver, baseurls=[str("http://yumoter.gnmedia.net/ius/%s/wildwest" % majorver)], mirrorlist=None)
 yb.add_enable_repo("gnrepo-%s" % majorver, baseurls=[str("http://yumoter.gnmedia.net/gnrepo/%s/wildwest" % majorver)], mirrorlist=None)
 
+yb.add_enable_repo("puppet-%s" % majorver, baseurls=[str("http://yumoter.gnmedia.net/puppet/%s/wildwest/" % majorver)], mirrorlist=None)
+#yb.add_enable_repo("mysql-5527", baseurls=[str("http://yum.gnmedia.net/mysql/%s/5527/" % majorver)], mirrorlist=None)
+#yb.add_enable_repo("mysql-common", baseurls=[str("http://yum.gnmedia.net/mysql/%s/mysql-common" % majorver)], mirrorlist=None)
+
 missingpkgs = []
 
 for pkg in localpkgs:
@@ -52,7 +59,10 @@ for pkg in localpkgs:
 	#print pkgresult
 	if len(pkgresult) == 0:
 		#print 'missing match:', pkg
-		missingpkgs.append(pkg.pkgtup)
+		if pkg.pkgtup[0] in blacklist:
+			print 'MySQL rpm not being added'
+		else:
+			missingpkgs.append(pkg.pkgtup)
 	elif len(pkgresult) == 1:
 		pass
 		#print 'match found:', pkg
@@ -67,3 +77,5 @@ for pkg in missingpkgs:
 filen = "/home/aarwine/tmp/pickle/%s/%s" % (fullver, socket.getfqdn())
 foo = open(filen, 'w')
 pickle.dump(missingpkgs, foo)
+
+
