@@ -97,7 +97,7 @@
             "beta",
             "live"
         ],
-        "deprepos": ["os", "epel"],
+        "deprepos": ["os", "epel"]
     },
     "updates-6": {
         "osver": "6",
