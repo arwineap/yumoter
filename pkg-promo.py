@@ -107,8 +107,11 @@ neededDeps = depyumoter.getNeededDeps(promopkg)
 
 # Put the chosen pkg in a list with it's deps
 depsList = [promopkg]
-for dep in neededDeps[promopkg]:
-    depsList.append(dep)
+
+# If the pkg has no deps, don't try to iterate through them.
+if len(neededDeps) != 0:
+    for dep in neededDeps[promopkg]:
+        depsList.append(dep)
 
 
 depNameDict = {}
