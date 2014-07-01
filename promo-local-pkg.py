@@ -36,7 +36,8 @@ normalrepos = ['epel-', 'ius-', 'updates-']
 otherrepos = ['os-']
 loadQueue = []
 
-yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+#yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+yumoter = yumoter.yumoter('config/repos.json', '/mnt/yum_repos/yumoter/repos')
 
 yb = yum.YumBase()
 

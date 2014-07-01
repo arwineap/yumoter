@@ -1,6 +1,6 @@
 import yumoter
 
-yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+yumoter = yumoter.yumoter('config/repos.json', '/mnt/yum_repos/yumoter/repos')
 
 yumoter.loadRepos("6.4", "wildwest")
 a = yumoter._returnNewestByNameArch(["openssl"])
