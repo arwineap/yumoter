@@ -6,8 +6,8 @@ import smtplib
 import string
 from email.mime.text import MIMEText
 
-#yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
-yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
+yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+#yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
 output = yumoter.syncRepos()
 
 msgBody = []
