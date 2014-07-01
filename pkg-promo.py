@@ -53,11 +53,11 @@ if args.subprocess_name == 'list':
         print(repo)
         for key in yumoter.repoConfig[repo]:
             if isinstance(yumoter.repoConfig[repo][key], basestring):
-                print("\t%s: %s" % (key, yumoter.repoConfig[repo][key]))
+                print("  %s: %s" % (key, yumoter.repoConfig[repo][key]))
             else:
-                print("\t%s:" % key)
+                print("  %s:" % key)
                 for entry in yumoter.repoConfig[repo][key]:
-                    print("\t\t%s" % entry)
+                    print("    %s" % entry)
     sys.exit()
 
 # Load initial repo to do search
@@ -85,6 +85,7 @@ for repo in searchPkgDict:
         print("%d. %s" % (i, pkg))
         pkgIdx.append(pkg)
         i += 1
+
 print('Please select which pkg to promote:')
 
 
@@ -99,7 +100,7 @@ promopkg = pkgIdx[pkgChoice]
 currEnvIdx = environments.index(args.environment)
 
 # setup depyumoter
-depyumoter = depyumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
+depyumoter = depyumoter.yumoter('config/repos.json', '/mnt/yum_repos/yumoter/repos')
 depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 
 # get initial deps for our chosen pkg
@@ -135,7 +136,8 @@ for key in commonPkgDict:
     choicepkg = depyumoter.yb.bestPackagesFromList(commonPkgDict[key])
     for entry in choicepkg:
         if depyumoter._repoIsPromoted(depyumoter._urlToRepo(entry.remote_url)):
-            promoList.append(entry)
+            if entry not in promoList:
+                promoList.append(entry)
 
 print ""
 print "Promotion list:"
