@@ -293,7 +293,7 @@ class yumoter:
                     # Load the only URL you can
                     self._loadRepo(repo, self.repoConfig[repo]['fullurls'][0])
                 else:
-                    self._loadRepo(repo, self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
+                    self._loadRepo("%s-%s" % (repo, env), self.repoConfig[repo]['fullurls'][self.repoConfig[repo]['promotionpath'].index(env)])
             except yum.Errors.DuplicateRepoError:
                 print "Already added:", repo
 
