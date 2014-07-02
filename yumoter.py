@@ -17,6 +17,7 @@ class yumoter:
         self.yb = yum.YumBase()
         self.yb.setCacheDir(yum.misc.getCacheDir())
         self.yb.repos.disableRepo("*")
+        os.umask(0o002)
 
     def _getConfig(self, jsonFile):
         fh = open(jsonFile, 'r')

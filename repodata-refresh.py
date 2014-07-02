@@ -2,6 +2,9 @@
 
 
 import yumoter
+import os
+
+os.umask(0o002)
 
 #yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
 yumoter = yumoter.yumoter('config/repos.json', '/mnt/yum_repos/yumoter/repos')
