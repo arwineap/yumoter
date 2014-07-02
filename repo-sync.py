@@ -25,8 +25,8 @@ for (repo, stdout, stderr) in output:
 
 msg = MIMEText('\r\n'.join(msgBody))
 smtp = smtplib.SMTP('localhost', 25)
-msg["From"] = "alex.arwine@gorillanation.com"
-msg["To"] = "alex.arwine@evolvemediallc.com"
+msg["From"] = "yumoter@gorillanation.com"
+msg["To"] = "sysadmins@evolvemediallc.com"
 msg["Subject"] = "[Repo sync] Updates"
 msg.add_header("Content-Type", "text/plain")
 smtp.sendmail(msg["From"], msg["To"], msg.as_string())
