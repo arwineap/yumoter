@@ -339,7 +339,7 @@ class yumoter:
                 # If the dst dir doesn't exist, create it.
                 if not os.path.isdir(self.repoConfig[repo]['fullpaths'][0]):
                     self._mkPaths()
-                outputList.append(self._runRsync(repo, self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--progress']))
+                outputList.append(self._runRsync(repo, self.repoConfig[repo]['upstream'], self.repoConfig[repo]['fullpaths'][0], ['-av', '--partial']))
         return outputList
 
     def reloadConfig(self, jsonFile):
