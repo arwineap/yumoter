@@ -28,7 +28,8 @@ def commonInLists(listOfLists):
         raise Exception('How did I get here?')
 
 
-parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.')
+parser = argparse.ArgumentParser(description='The yumoter promo script will assist you in promoting pkgs and their dependencies through environments.',
+                                epilog="Example: ./pkg-promo.py search -c 6.5 -e wildwest -r epel-6 GitPython")
 
 subparsers = parser.add_subparsers(help='Use search to promote something, and list to get information about the repos', dest='subprocess_name')
 
