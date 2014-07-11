@@ -272,7 +272,6 @@ class yumoter:
                     print("INFO: deleting unneeded link: %s" % dpkg)
                     os.remove(dpkg)
                     self._addChangedRepo((dRepo, dEnv))
-
         else:
             print("skipping %s because it is not in a promoted repo" % pkg.name)
 
