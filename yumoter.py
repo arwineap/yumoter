@@ -243,7 +243,7 @@ class yumoter:
             newpath = self._urlToPromoPath(pkg.remote_url)
             print("promoting %s -> %s" % (oldpath, newpath))
             if os.path.exists(newpath):
-                print("INFO: link already exists: %s" % (dst))
+                print("INFO: link already exists: %s" % (newpath))
                 cleanuplist.append(oldpath)
             else:
                 dstUrl = self._pathToUrl(newpath)
