@@ -181,41 +181,10 @@ class yumoter:
             self.changedRepos.append(repoTuple)
 
     def _hardlink(self, src, dst):
-        # src and dst are PATHS, not URLs
-        srcUrl = self._pathToUrl(src)
-        srcRepo = self._urlToRepo(srcUrl)
-        srcEnv = self._urlToEnv(srcUrl)
-        dstUrl = self._pathToUrl(dst)
-        dstRepo = self._urlToRepo(dstUrl)
-        dstEnv = self._urlToEnv(dstUrl)
-        if os.path.exists(dst):
-            print("INFO: link already exists: %s" % (dst))
-            return True
         print("Linking %s -> %s" % (src, dst))
         os.link(src, dst)
         if not os.path.exists(dst):
-            print("ERROR: linking failed.")
-            sys.exit(1)
-        # Queue the link destination for createrepo
-        self._addChangedRepo((dstRepo, dstEnv))
-        # Ok, file is linked, now we need to do some fancy footwork.
-        # The rule is, links never get removed from the first environment.
-        # Links do get removed as they get promoted through further environments.
-        # promotionpath = ['wildwest', 'beta', 'live']
-        # link wildwest -> beta
-        #   No deletions
-        # link beta -> live
-        #   Delete beta
-        ######
-        # Now that we've gathered information, let's determine if we need to
-        # clean up the srcLink
-        if self.repoConfig[srcRepo]['promotionpath'].index(srcEnv) != 0:
-            # TODO: This block signifies repos that need to be queued for createrepo.
-            print("INFO: deleting unneeded link: %s" % src)
-            os.remove(src)
-            # We removed the rpm from the source, we need to also createrepo on it.
-            self._addChangedRepo((srcRepo, srcEnv))
-        return True
+            return False
 
     def _magicTranslator(self, name, version):
         majorVer = self._translateToMajorVer(version)
@@ -268,11 +237,42 @@ class yumoter:
 
     def promotePkg(self, pkg):
         repo = self._urlToRepo(pkg.remote_url)
+        cleanuplist = []
         if self._repoIsPromoted(repo):
             oldpath = self._urlToPath(pkg.remote_url)
             newpath = self._urlToPromoPath(pkg.remote_url)
             print("promoting %s -> %s" % (oldpath, newpath))
-            self._hardlink(oldpath, newpath)
+            if os.path.exists(newpath):
+                print("INFO: link already exists: %s" % (dst))
+                cleanuplist.append(oldpath)
+            else:
+                dstUrl = self._pathToUrl(newpath)
+                dstRepo = self._urlToRepo(dstUrl)
+                dstEnv = self._urlToEnv(dstUrl)
+                srcUrl = self._pathToUrl(oldpath)
+                srcRepo = self._urlToRepo(srcUrl)
+                srcEnv = self._urlToEnv(srcUrl)
+                if self._hardlink(oldpath, newpath):
+                    self._addChangedRepo((dstRepo, dstEnv))
+                    cleanuplist.append(oldpath)
+                else:
+                    print("ERROR: link failed")
+            for dpkg in cleanuplist:
+                # Deletions should happen post-promotes if the link src is not the first
+                # environment in the promopath
+                # promotionpath = ['wildwest', 'beta', 'live']
+                # link wildwest -> beta
+                #   No deletions
+                # link beta -> live
+                #   Delete beta
+                dUrl = self._pathToUrl(dpkg)
+                dRepo = self._urlToRepo(dUrl)
+                dEnv = self._urlToEnv(dUrl)
+                if self.repoConfig[dRepo]['promotionpath'].index(dEnv) != 0:
+                    print("INFO: deleting unneeded link: %s" % dpkg)
+                    os.remove(dpkg)
+                    self._addChangedRepo((dRepo, dEnv))
+
         else:
             print("skipping %s because it is not in a promoted repo" % pkg.name)
 
