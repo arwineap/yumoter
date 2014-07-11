@@ -183,9 +183,9 @@ class yumoter:
     def _hardlink(self, src, dst):
         print("Linking %s -> %s" % (src, dst))
         os.link(src, dst)
-        if not os.path.exists(dst):
-            return False
-        return True
+        if os.path.exists(dst):
+            return True
+        return False
 
     def _magicTranslator(self, name, version):
         majorVer = self._translateToMajorVer(version)
