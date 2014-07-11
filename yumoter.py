@@ -185,6 +185,7 @@ class yumoter:
         os.link(src, dst)
         if not os.path.exists(dst):
             return False
+        return True
 
     def _magicTranslator(self, name, version):
         majorVer = self._translateToMajorVer(version)
