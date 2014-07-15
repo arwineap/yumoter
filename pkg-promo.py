@@ -46,7 +46,7 @@ args = parser.parse_args()
 environments = ['wildwest', 'beta', 'live']
 
 #yumoter = yumoter.yumoter('config/repos.json', '/home/aarwine/git/yumoter/repos')
-yumoter = yumoter.yumoter('config/repos.json', '/mnt/yum_repos/yumoter/repos')
+yumoter = yumoter.yumoter('/mnt/yum_repos/yumoter/config/repos.json', '/mnt/yum_repos/yumoter/repos')
 #yumoter = yumoter.yumoter('config/repos.json', '/vagrant/yumoter/repos')
 
 if args.subprocess_name == 'list':
@@ -101,7 +101,7 @@ promopkg = pkgIdx[pkgChoice]
 currEnvIdx = environments.index(args.environment)
 
 # setup depyumoter
-depyumoter = depyumoter.yumoter('config/repos.json', '/mnt/yum_repos/yumoter/repos')
+depyumoter = depyumoter.yumoter('/mnt/yum_repos/yumoter/config/repos.json', '/mnt/yum_repos/yumoter/repos')
 depyumoter.loadRepos(args.centosversion, args.environment, args.repo)
 
 # get initial deps for our chosen pkg
