@@ -108,7 +108,7 @@
             "live"
         ],
         "deprepos": ["os"],
-        "upstream": "rsync://yum.postgresql.org/pgrpm-94/redhat/rhel-6.4-x86_64/"
+        "upstream": "rsync://yum.postgresql.org/pgrpm-93/redhat/rhel-6-x86_64/"
     },
     "updates-6": {
         "osver": "6",
