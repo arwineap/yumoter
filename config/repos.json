@@ -99,6 +99,17 @@
         ],
         "deprepos": ["os", "epel"]
     },
+    "postgres-6": {
+        "osver": "6",
+        "path": "postgres/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": "rsync://yum.postgresql.org/pgrpm-94/redhat/rhel-6.4-x86_64/"
+    },
     "updates-6": {
         "osver": "6",
         "path": "updates/6",
