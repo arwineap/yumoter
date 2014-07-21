@@ -41,3 +41,9 @@ basepath + / + path
 ---
 
 I think promotionpath should be a list. Lists are ordered, so we can define things like ["dev", "stg", "prd"] or ["wildwest", "beta", "live"]. Will also allow us to solve where to promote to using srcIndex+1.
+
+TODO / Known Issues
+============
+promotionpath should be configured per instance. We can't realistically support different numbers of environments per repo.
+
+repo-sync needs to createrepo after it syncs. This is required for two reasons. First, some repos do not come down with repodata (IE jenkins), second, we are not using --delete flag on rsync, therefore our repodata is different than upstreams.
