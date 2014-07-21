@@ -118,7 +118,8 @@
             "beta",
             "live"
         ],
-        "deprepos": ["os"]
+        "deprepos": ["os"],
+        "upstream": "rsync://ftp-nyc.osuosl.org/jenkins/redhat/"
     },
     "updates-6": {
         "osver": "6",
