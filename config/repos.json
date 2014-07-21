@@ -118,8 +118,7 @@
             "beta",
             "live"
         ],
-        "deprepos": ["os"],
-        "upstream": ""
+        "deprepos": ["os"]
     },
     "updates-6": {
         "osver": "6",
