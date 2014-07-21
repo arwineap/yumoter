@@ -110,6 +110,17 @@
         "deprepos": ["os"],
         "upstream": "rsync://yum.postgresql.org/pgrpm-93/redhat/rhel-6-x86_64/"
     },
+    "jenkins-6": {
+        "osver": "6",
+        "path": "jenkins/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": ""
+    },
     "updates-6": {
         "osver": "6",
         "path": "updates/6",
