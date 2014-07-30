@@ -142,8 +142,17 @@ for key in commonPkgDict:
 
 print ""
 print "Promotion list:"
+goprettydict = {}
 for idx, entry in enumerate(promoList):
-    print "%s. %s" % (idx, entry)
+    repoName = yumoter._urlToRepo(entry.remote_url)
+    if repoName not in goprettydict:
+        goprettydict[repoName] = []
+    goprettydict[repoName].append(entry)
+
+for repo in goprettydict:
+    print "%s" % repo
+    for pkg in goprettydict[repo]:
+        print "  %s" % pkg
 
 goVar = raw_input("Go? (y|n): ")
 
