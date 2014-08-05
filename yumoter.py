@@ -80,7 +80,6 @@ class yumoter:
     def _runRsync(self, rsyncName, rsrc, rdst, args):
         # str(rsrc), str(rdst), list(args)
         sysCall = ['rsync'] + args + [rsrc, rdst]
-        print('sysCall', sysCall)
         rsyncStdout = []
         rsyncStderr = []
         p = subprocess.Popen(sysCall, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
@@ -111,15 +110,6 @@ class yumoter:
         if type(pkgObj) != list:
             pkgObj = [pkgObj]
         result = self.yb.findDeps(pkgObj)
-        '''
-        #print 'DEBUG _getDeps:', result
-        print '---- DEBUG getDeps ----'
-        for pkg in result:
-            print 'pkg:', pkg
-            for dep in result[pkg]:
-                print '  dep:', dep
-        print '---- /DEBUG getDeps ----'
-        '''
         return result
 
     def _urlToPath(self, url):
