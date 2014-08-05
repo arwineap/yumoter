@@ -242,7 +242,7 @@ class yumoter:
                 srcRepo = self._urlToRepo(srcUrl)
                 srcEnv = self._urlToEnv(srcUrl)
                 if self._hardlink(oldpath, newpath):
-                    print("Linked %s -> %s" % (src, dst))
+                    print("Linked %s -> %s" % (oldpath, newpath))
                     self._addChangedRepo((dstRepo, dstEnv))
                     cleanuplist.append(oldpath)
                 else:
