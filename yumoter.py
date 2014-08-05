@@ -171,7 +171,6 @@ class yumoter:
             self.changedRepos.append(repoTuple)
 
     def _hardlink(self, src, dst):
-        print("Linking %s -> %s" % (src, dst))
         os.link(src, dst)
         if os.path.exists(dst):
             return True
@@ -232,7 +231,6 @@ class yumoter:
         if self._repoIsPromoted(repo):
             oldpath = self._urlToPath(pkg.remote_url)
             newpath = self._urlToPromoPath(pkg.remote_url)
-            print("promoting %s -> %s" % (oldpath, newpath))
             if os.path.exists(newpath):
                 print("INFO: link already exists: %s" % (newpath))
                 cleanuplist.append(oldpath)
@@ -244,10 +242,11 @@ class yumoter:
                 srcRepo = self._urlToRepo(srcUrl)
                 srcEnv = self._urlToEnv(srcUrl)
                 if self._hardlink(oldpath, newpath):
+                    print("Linked %s -> %s" % (src, dst))
                     self._addChangedRepo((dstRepo, dstEnv))
                     cleanuplist.append(oldpath)
                 else:
-                    print("ERROR: link failed")
+                    print("ERROR: link failed: %s -> %s" % oldpath newpath)
             for dpkg in cleanuplist:
                 # Deletions should happen post-promotes if the link src is not the first
                 # environment in the promopath
