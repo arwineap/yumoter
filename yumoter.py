@@ -246,7 +246,7 @@ class yumoter:
                     self._addChangedRepo((dstRepo, dstEnv))
                     cleanuplist.append(oldpath)
                 else:
-                    print("ERROR: link failed: %s -> %s" % oldpath newpath)
+                    print("ERROR: link failed: %s -> %s" % (oldpath, newpath))
             for dpkg in cleanuplist:
                 # Deletions should happen post-promotes if the link src is not the first
                 # environment in the promopath
