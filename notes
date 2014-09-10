@@ -1,0 +1,9 @@
+Can rename repos back to dev|stg|prd, it makes sense now. Term no longer over loaded
+
+Lean more on yum infrastructure instead of `find` like techniques
+
+OOO - Do it.
+
+Ensure Two classes of repos, static and 'managed' - Static are only updated through the script, there's no promotion (centos os, updates), managed go through promotion process with 3 stages (cp-pkg.py)
+
+Need to load the OS / updates pkgs for dep resolution, but all these deps are automagically satisfied. Potential issue: promoter box may need to be matching os for dep resolution?

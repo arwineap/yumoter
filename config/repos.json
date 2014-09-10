@@ -1,0 +1,135 @@
+{
+    "epel-6": {
+        "osver": "6",
+        "path": "epel/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": "rsync://mirrors.kernel.org/fedora-epel/6/x86_64/"
+    },
+    "ius-6": {
+        "osver": "6",
+        "path": "ius/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os", "epel"],
+        "upstream": "rsync://mirror.rackspace.com/ius/stable/Redhat/6/x86_64/"
+    },
+    "os-56": {
+        "osver": "5.6",
+        "path": "os/5.6",
+        "deprepos": [],
+        "upstream": "rsync://archive.kernel.org/centos/5.6/os/x86_64/Packages/"
+    },
+    "os-63": {
+        "osver": "6.3",
+        "path": "os/6.3",
+        "deprepos": [],
+        "upstream": "rsync://archive.kernel.org/centos/6.3/os/x86_64/Packages/"
+    },
+    "os-64": {
+        "osver": "6.4",
+        "path": "os/6.4",
+        "deprepos": [],
+        "upstream": "rsync://archive.kernel.org/centos/6.4/os/x86_64/Packages/"
+    },
+    "os-65": {
+        "osver": "6.5",
+        "path": "os/6.5",
+        "deprepos": [],
+        "upstream": "rsync://mirrors.usc.edu/centos/6.5/os/x86_64/"
+    },
+    "puppet-5": {
+        "osver": "5",
+        "path": "puppet/5",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os", "puppetdependencies"],
+        "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/5/products/x86_64/"
+    },
+    "puppet-6": {
+        "osver": "6",
+        "path": "puppet/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os", "puppetdependencies"],
+        "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/"
+    },
+    "puppetdependencies-6": {
+        "osver": "6",
+        "path": "puppetdependencies/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/dependencies/x86_64/"
+    },
+    "puppetmaster-6": {
+        "osver": "6",
+        "path": "puppetmaster/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os", "puppetdependencies"],
+        "upstream": "rsync://yum.puppetlabs.com/packages/yum/el/6/products/x86_64/"
+    },
+    "gnrepo-6": {
+        "osver": "6",
+        "path": "gnrepo/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os", "epel"]
+    },
+    "postgres-6": {
+        "osver": "6",
+        "path": "postgres/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": "rsync://yum.postgresql.org/pgrpm-93/redhat/rhel-6-x86_64/"
+    },
+    "jenkins-6": {
+        "osver": "6",
+        "path": "jenkins/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": "rsync://ftp-nyc.osuosl.org/jenkins/redhat/"
+    },
+    "updates-6": {
+        "osver": "6",
+        "path": "updates/6",
+        "promotionpath": [
+            "wildwest",
+            "beta",
+            "live"
+        ],
+        "deprepos": ["os"],
+        "upstream": "rsync://mirrors.kernel.org/centos/6/updates/x86_64/Packages/"
+    }
+}
